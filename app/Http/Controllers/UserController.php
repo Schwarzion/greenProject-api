@@ -11,6 +11,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
+        //Midleware use example to protect controller access form unauthenticated users
         //  $this->middleware('auth:api');
     }
     /**
