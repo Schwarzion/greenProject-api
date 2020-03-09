@@ -18,7 +18,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'api_token'
+        'firstName', 'lastName', 'email', 'password', 'api_token', 'alias', 'level', 'address', 'city', 'postalCode', 'userStatus', 'sexe', 'phone', 'birthday', 'exp', 'temporaryPassword', 'temporaryPasswordValid',
     ];
 
     /**
@@ -27,8 +27,10 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $hidden = [
-        'password',
+        'password', 'temporaryPassword',
     ];
 
-    protected $table = 'users';
+    protected $table = 'user';
+
+    public $timestamps = false; //not registering columns created_at + modified_at
 }

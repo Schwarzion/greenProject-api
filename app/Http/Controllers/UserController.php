@@ -12,50 +12,53 @@ class UserController extends Controller
     public function __construct()
     {
         //Midleware use example to protect controller access form unauthenticated users
-        //  $this->middleware('auth:api');
+        //this->middleware('auth:api'); //Should use it + add exception for create
     }
     /**
-     * Display a listing of the resource.
+     * Create a new user
      *
      * @return \Illuminate\Http\Response
      */
 
     public function create(Request $request)
     {
+        $this->validate($request, [
+            'firstName' => 'required|max:30|alpha_dash',
+            'lastName' => 'required|max:30|alpha_dash',
+            'alias' => 'required|max:20|unique:user',
+            'email' => 'required|max:89|email|unique:user',
+            'password' => 'required|max:50',
+            'address' => 'required|max:60',
+            'city' => 'required|max:30|alpha_dash',
+            'postalCode' => 'required|max:5|alpha_num',
+            'birthday' => 'required|date|before:today',
+            'sexe' => 'required|boolean',
+            'phone' => 'required|max:10|alpha_num',
+//todo : add password confirmation ('confirmed')
+        ]);
+
+        
+
         $user = User::create([
-            'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
             'api_token' => Str::random(60),
+            'firstName' => $request->input('firstName'),
+            'lastName' => $request->input('lastName'),
+            'alias' => $request->input('email'),
+            'address' => $request->input('address'),
+            'city' => $request->input('city'),
+            'postalCode' => $request->input('postalCode'),
+            'birthday' => $request->input('birthday'),
+            'sexe' => $request->input('sexe'),
+            'phone' => $request->input('phone'),
         ]);
-        return response()->json(['user' => $user]);
-    }
-
-    public function register()
-    {
-
-    }
-
-    public function authenticate(Request $request)
-    {
-        $this->validate($request, [
-            'email' => 'required',
-            'password' => 'required',
-        ]);
-
-        $user = User::where('email', $request->input('email'))->first();
-        if ($user) {
-            return response()->json(['status' => 'authenticated', 'token' => 'exampleToken']);
+        if ($user->save()) {
+            return response()->json(['user' => $user]);
         } else {
-            return response()->json(['status' => 'unauthenticated'], 401);
+            return response()->json(['message' => 'Cannot register email'], 404);
         }
 
-        // if (Hash::check($request->input('password'), $user->password)) {
-        //     $apikey = base64_encode(str_random(40));
-        //     User::where('email', $request->input('email'))->update(['api_key' => "$apikey"]);
-        //     return response()->json(['status' => 'success', 'api_key' => $apikey]);
-        // } else {
-        //     return response()->json(['status' => 'fail'], 401);
-        // }
     }
+
 }

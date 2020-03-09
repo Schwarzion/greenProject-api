@@ -1,0 +1,19 @@
+Start lumen server with local ip:
+php -S localhost:8000 -t public  
+
+Make database from migrations files : 
+php artisan migrate
+
+Clear cache :
+php artisan cache:clear 
+
+Use Eloquent ORM in cli (SUPER USEFUL!!!!):
+php artisan tinker
+
+You can find all artisan commands by typing this : 
+php artisan list
+
+
+
+Validation option list (useful for forms) : 
+https://laravel.com/docs/6.x/validation#available-validation-rules
