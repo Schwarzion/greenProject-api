@@ -42,4 +42,25 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('logout', [
         'as' => 'logout', 'uses' => 'AuthController@logout',
     ]);
+    //Get all tips
+    $router->get('allTips', [
+        'as' => 'allTips', 'uses' => 'TipController@getAllTips',
+    ]);
+    //Get one tips
+    $router->get('tip/{id}', [
+        'as' => 'tip', 'uses' => 'TipController@getTip',
+    ]);
+    //Add tip
+    $router->post('addTip', [
+        'as' => 'alltips', 'uses' => 'TipController@addTip',
+    ]);
+    //Delete tip
+    $router->get('deleteTip/{id}', [
+        'as' => 'deleteTip', 'uses' => 'TipController@deleteTip',
+    ]);
+    //Edit tip
+    $router->post('editTip/{id}', [
+        'as' => 'editTip', 'uses' => 'TipController@updateTip',
+    ]);
+
 });
