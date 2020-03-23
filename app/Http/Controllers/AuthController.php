@@ -31,12 +31,15 @@ class AuthController extends Controller
             'password' => 'required|string',
         ]);
 
+        //Get email and password from input
         $credentials = $request->only(['email', 'password']);
 
+        //Try to authenticate
         if (!$token = Auth::attempt($credentials)) {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
 
+        //If auth::attemp() ok -> send method response
         return $this->respondWithToken($token);
     }
 
@@ -58,7 +61,6 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::logout();
-
         return response()->json(['message' => 'Successfully logged out']);
     }
 
@@ -82,9 +84,9 @@ class AuthController extends Controller
     protected function respondWithToken($token)
     {
         return response()->json([
-            'token' => $token,
+            'token' => $token, //Create token
             'token_type' => 'bearer',
-            'expires_in' => Auth::factory()->getTTL() * 60,
+            'expires_in' => Auth::factory()->getTTL() * 60, //Set time
         ], 200);
     }
 }

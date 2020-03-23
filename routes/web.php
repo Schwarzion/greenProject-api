@@ -31,11 +31,14 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         'as' => 'login', 'uses' => 'AuthController@login',
     ]);
 
-    //Authentified Part of API
+    //Authentified Part of API (check controller constructor)
+
+    //Get authentified user
     $router->get('profile', [
         'as' => 'profile', 'uses' => 'AuthController@me',
     ]);
-    
+
+    //Invalidate the token
     $router->post('logout', [
         'as' => 'logout', 'uses' => 'AuthController@logout',
     ]);
