@@ -25,8 +25,8 @@ class UserController extends Controller
         $this->validate($request, [
             'firstName' => 'required|max:30|alpha_dash',
             'lastName' => 'required|max:30|alpha_dash',
-            'alias' => 'required|max:20|unique:user',
-            'email' => 'required|max:89|email|unique:user',
+            'alias' => 'required|max:20|unique:user,alias',
+            'email' => 'required|max:89|email|unique:user,email',
             'password' => 'required|max:50',
             'address' => 'required|max:60',
             'city' => 'required|max:30|alpha_dash',
@@ -34,7 +34,7 @@ class UserController extends Controller
             'birthday' => 'required|date|before:today',
             'sexe' => 'required|boolean',
             'phone' => 'required|max:10|alpha_num',
-//todo : add password confirmation ('confirmed')
+            //todo : add password confirmation ('confirmed')
         ]);
 
         
@@ -53,10 +53,11 @@ class UserController extends Controller
             'sexe' => $request->input('sexe'),
             'phone' => $request->input('phone'),
         ]);
+
         if ($user->save()) {
-            return response()->json(['user' => $user]);
+            return response()->json(['message' => 'User sucessfully registered', 'user' => $user]);
         } else {
-            return response()->json(['message' => 'Cannot register email'], 404);
+            return response()->json(['message' => 'Cannot register user'], 409);
         }
 
     }

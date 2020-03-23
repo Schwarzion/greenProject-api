@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -14,7 +15,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth', ['except' => ['login']]);
     }
 
     /**
@@ -24,10 +25,16 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        $credentials = $request(['email', 'password']);
+        //validate incoming request
+        $this->validate($request, [
+            'email' => 'required|string',
+            'password' => 'required|string',
+        ]);
 
-        if (!$token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        $credentials = $request->only(['email', 'password']);
+
+        if (!$token = Auth::attempt($credentials)) {
+            return response()->json(['message' => 'Unauthorized'], 401);
         }
 
         return $this->respondWithToken($token);
@@ -40,7 +47,7 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return response()->json(auth()->user());
+        return response()->json(Auth::user());
     }
 
     /**
@@ -50,7 +57,7 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        auth()->logout();
+        Auth::logout();
 
         return response()->json(['message' => 'Successfully logged out']);
     }
@@ -62,7 +69,7 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        return $this->respondWithToken(auth()->refresh());
+        return $this->respondWithToken(Auth::refresh());
     }
 
     /**
@@ -75,33 +82,9 @@ class AuthController extends Controller
     protected function respondWithToken($token)
     {
         return response()->json([
-            'access_token' => $token,
+            'token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60,
-        ]);
-    }
-
-    public function authenticate(Request $request)
-    {
-        $this->validate($request, [
-            'email' => 'required',
-            'password' => 'required',
-        ]);
-
-        $user = User::where('email', $request->input('email'))->first();
-
-        if ($user) {
-            return response()->json(['user' => $user, 'token' => 'exampleToken']);
-        } else {
-            return response()->json(['status' => 'unauthenticated'], 401);
-        }
-
-        // if (Hash::check($request->input('password'), $user->password)) {
-        //     $apikey = base64_encode(str_random(40));
-        //     User::where('email', $request->input('email'))->update(['api_key' => "$apikey"]);
-        //     return response()->json(['status' => 'success', 'api_key' => $apikey]);
-        // } else {
-        //     return response()->json(['status' => 'fail'], 401);
-        // }
+            'expires_in' => Auth::factory()->getTTL() * 60,
+        ], 200);
     }
 }

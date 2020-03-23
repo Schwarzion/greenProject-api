@@ -21,11 +21,22 @@ $router->get('/', function () use ($router) {
 });
 
 
-//Guest Part of API
-$router->post('/register', [
-    'as' => 'register', 'uses' => 'UserController@create'
-]);
 
+// API route group
+$router->group(['prefix' => 'api'], function () use ($router) {
 
-//Authentified Part of API
+    //Guest Part of API
+    $router->post('register', [
+        'as' => 'register', 'uses' => 'UserController@create'
+    ]);
+    $router->post ('login', [
+        'as' => 'login', 'uses' => 'AuthController@login'
+    ]);
+    
+    //Authentified Part of API
+    $router->get('profile', [
+        'as' => 'profile', 'uses' => 'AuthController@me'
+    ]);
+ });
+
 

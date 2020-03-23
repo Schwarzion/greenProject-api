@@ -15,6 +15,8 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+CREATE Database IF NOT EXISTS greenDB;
+
 --
 -- Table structure for table `level`
 --
@@ -51,12 +53,12 @@ DROP TABLE IF EXISTS `quest`;
 CREATE TABLE `quest` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `desc` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `desc` varchar(120) COLLATE utf8mb4_unicode_ci NOT NULL,
   `expAmount` int(11) NOT NULL,
   `minLevel` int(11) NOT NULL,
-  `timeForQuest` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `timeForQuest` timestamp NOT NULL,
   `endDate` date NOT NULL,
-  `questStatus` smallint(6) NOT NULL,
+  `questStatus` smallint(6) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -132,11 +134,11 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `firstName` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lastName` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `firstName` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lastName` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `alias` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `level` int(11) NOT NULL DEFAULT 1,
-  `api_token` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `api_token` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
   `userStatus` smallint(6) NOT NULL DEFAULT 1,
   `address` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
   `city` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -146,11 +148,11 @@ CREATE TABLE `user` (
   `phone` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `birthday` date NOT NULL,
   `exp` int(11) NOT NULL DEFAULT 0,
-  `temporaryPassword` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `password` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `temporaryPassword` varchar(60) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
   `temparyPasswordValid` date DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_email_alias` (`email`,`alias`)
+  UNIQUE KEY `unique_user` (`email`, `alias`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -174,7 +176,7 @@ CREATE TABLE `userQuest` (
   `questId` int(11) NOT NULL,
   `userId` int(11) NOT NULL,
   `expire` date NOT NULL,
-  `status` smallint(6) NOT NULL,
+  `status` smallint(6) NOT NULL DEFAULT 1,
   PRIMARY KEY (`questId`,`userId`),
   KEY `fkIdx_questId` (`questId`),
   KEY `fkIdx_userId` (`userId`),
