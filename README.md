@@ -2,7 +2,6 @@
 
 2nd Aston project |  PHP API 
 
-  
 
 ## Requirements 
 
@@ -18,11 +17,10 @@ Lumen: v6.0 (minimum)
 https://lumen.laravel.com/docs/6.x/installation 
 
 Composer: we recommend that you use the latest version possible (at the moment 1.10.1) 
-https://getcomposer.org/ 
+https://getcomposer.org/
 
 MySQL: v8.0. You can install any visual tool to help you. 
 https://dev.mysql.com/doc/refman/8.0/en/ 
- 
 
 ---------------------------------------------- 
 
@@ -39,7 +37,7 @@ Check on the internet if you don’t know how to.
 Complete file .env.exemple with your DB configuration, your username and your password. 
 
 Generate a JWT token with command ‘php artisan jwt:secret’ . 
- 
+
 Generate manually an app key and add it to APP_KEY. (Ex: ‘7J/hU/TT<?f=*p7J[U2Gh9_%~ojd8l’)  
 
 Rename file to “.env”. 
