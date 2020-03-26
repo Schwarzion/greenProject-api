@@ -37,7 +37,7 @@ Check on the internet if you don’t know how to.
 4 . Generate a JWT token with command ‘php artisan jwt:secret’
 
 5. Generate manually an app key and add it to APP_KEY property in .env.example
-Example : ‘APP_KEY = 7J/hU/TT<?f=*p7J[U2Gh9_%~ojd8l’
+Example : `APP_KEY = 7J/hU/TT<?f=*p7J[U2Gh9_%~ojd8l`
 
 6. Rename file “.env.example“ to “.env”
  
