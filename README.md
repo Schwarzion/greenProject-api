@@ -28,14 +28,13 @@ https://dev.mysql.com/doc/refman/8.0/en/
 
 ## How to install and run project 
  
-`Composer install` 
+`composer install` 
  
 To be able to run this project, you will need to add a database to your mysql server. 
 Be sure to have the minimum mysql requirements. 
  
 Add databse to mysql 
 Check on the internet if you don’t know how to. 
- 
 
 Complete file .env.exemple with your DB configuration, your username and your password. 
 
@@ -48,10 +47,16 @@ Rename file to “.env”.
 Launch the server :  
 `php -S localhost:8000 -t public` 
  
+To test the application open a browser (or Postman if you prefer) and enter this url : 
+` http://localhost:8000/test `
+If you this message in return: 
+` {"msg":"hello"} `
+App is working!
+
+If not, try to step backward and retry.
 
 ---------------------------------------------- 
 
- 
 
 # Lumen PHP Framework 
 
