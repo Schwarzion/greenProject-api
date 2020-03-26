@@ -2,7 +2,7 @@
 
 /*
 |--------------------------------------------------------------------------
-| Application Routes
+| Web Routes
 |--------------------------------------------------------------------------
 |
 | Here is where you can register all of the routes for an application.
@@ -11,56 +11,21 @@
 |
  */
 
-//Tests purpose
-$router->get('/test', function () {
-    return response()->json(['msg' => 'hello']);
-});
-
-$router->get('/', function () use ($router) {
-    return $router->app->version();
-});
-
-// API route group
-$router->group(['prefix' => 'api'], function () use ($router) {
-
-    //Guest Part of API
-    $router->post('register', [
-        'as' => 'register', 'uses' => 'UserController@create',
+ //return home dasboard view
+$router->group(['prefix' => 'dashboard'], function () use ($router) {
+    $router->get('home', [
+        'as' => 'home', 'uses' => 'HomeController@index',
     ]);
-    $router->post('login', [
-        'as' => 'login', 'uses' => 'AuthController@login',
+    $router->get('quests', [
+        'as' => 'quests', 'uses' => 'QuestController@index',
     ]);
-
-    //Authentified Part of API (check controller constructor)
-
-    //Get authentified user
-    $router->get('profile', [
-        'as' => 'profile', 'uses' => 'AuthController@me',
+    $router->get('tips', [
+        'as' => 'tips', 'uses' => 'TipController@index',
     ]);
-
-    //Invalidate the token
-    $router->post('logout', [
-        'as' => 'logout', 'uses' => 'AuthController@logout',
+    $router->get('users', [
+        'as' => 'users', 'uses' => 'UserController@index',
     ]);
-    //Get all tips
-    $router->get('allTips', [
-        'as' => 'allTips', 'uses' => 'TipController@getAllTips',
+    $router->get('stats', [
+        'as' => 'users', 'uses' => 'StatsController@index',
     ]);
-    //Get one tips
-    $router->get('tip/{id}', [
-        'as' => 'tip', 'uses' => 'TipController@getTip',
-    ]);
-    //Add tip
-    $router->post('addTip', [
-        'as' => 'alltips', 'uses' => 'TipController@addTip',
-    ]);
-    //Delete tip
-    $router->get('deleteTip/{id}', [
-        'as' => 'deleteTip', 'uses' => 'TipController@deleteTip',
-    ]);
-    //Edit tip
-    $router->post('editTip/{id}', [
-        'as' => 'editTip', 'uses' => 'TipController@updateTip',
-    ]);
-
 });

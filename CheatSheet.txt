@@ -1,9 +1,6 @@
 Start lumen server with local ip:
 php -S localhost:8000 -t public  
 
-Make database from migrations files : 
-php artisan migrate
-
 Clear cache :
 php artisan cache:clear 
 

@@ -14,12 +14,12 @@ class UserController extends Controller
         //Midleware use example to protect controller access form unauthenticated users
         //this->middleware('auth:api'); //Should use it + add exception for create
     }
+
     /**
      * Create a new user
      *
      * @return \Illuminate\Http\Response
-     */
-
+    */
     public function create(Request $request)
     {
         $this->validate($request, [
@@ -36,8 +36,6 @@ class UserController extends Controller
             'phone' => 'required|max:10|alpha_num',
             //todo : add password confirmation ('confirmed')
         ]);
-
-        
 
         $user = User::create([
             'email' => $request->input('email'),
