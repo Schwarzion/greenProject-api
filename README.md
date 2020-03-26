@@ -19,40 +19,49 @@ https://getcomposer.org/
 MySQL: v8.0. You can install any visual tool to help you. 
 https://dev.mysql.com/doc/refman/8.0/en/
 
----------------------------------------------- 
+----------------------------------------------
 
 ## How to install and run project 
  
 1. Install all package dependencies : 
-`composer install` 
- 
+`composer install`
+
+
 To be able to run this project, you will need to add a database to your mysql server. 
-Be sure to have the minimum mysql requirements. 
- 
-2.Add databse to your mysql server
-Check on the internet if you don’t know how to. 
+Be sure to have the minimum mysql requirements.
+
+
+2. Add databse to your mysql server
+Check on the internet if you don’t know how to.
+
 
 3. Complete file .env.example with your database username and password
 
-4 . Generate a JWT token with command ‘php artisan jwt:secret’
+
+4. Generate a JWT token with command ‘php artisan jwt:secret’
+
 
 5. Generate manually an app key and add it to APP_KEY property in .env.example
+
 Example : `APP_KEY = 7J/hU/TT<?f=*p7J[U2Gh9_%~ojd8l`
 
+
 6. Rename file “.env.example“ to “.env”
- 
-7. Launch the server :  
-`php -S localhost:8000 -t public` 
- 
-To test the application open a browser (or Postman if you prefer) and enter this url : 
-` http://localhost:8000/test `
-If you this message in return: 
-` {"msg":"hello"} `
+
+
+7. Launch the server :
+`php -S localhost:8000 -t public`
+
+
+To test the application open a browser (or Postman if you prefer) and enter this url :
+`http://localhost:8000/test`
+If you this message in return:
+`{"msg":"hello"}`
 App is working!
 
 If not, try to step backward and retry.
 
----------------------------------------------- 
+----------------------------------------------
 
 
 # Lumen PHP Framework 
