@@ -42,7 +42,7 @@ Check on the internet if you don’t know how to.
 4. Complete file .env with your database username and password
 
 
-5. Generate manually an app key and add it to APP_KEY property in .env.example
+5. Generate manually an app key and add it to APP_KEY property in .env
 
 Example : `APP_KEY = 7J/hU/TT<?f=*p7J[U2Gh9_%~ojd8l`
 
