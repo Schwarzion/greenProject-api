@@ -11,38 +11,37 @@ OpenSSL PHP Extension
 
 PDO PHP Extension 
 
-Mbstring PHP Extension 
-
-Lumen: v6.0 (minimum) 
-https://lumen.laravel.com/docs/6.x/installation 
+Mbstring PHP Extension  
 
 Composer: we recommend that you use the latest version possible (at the moment 1.10.1) 
 https://getcomposer.org/
 
 MySQL: v8.0. You can install any visual tool to help you. 
-https://dev.mysql.com/doc/refman/8.0/en/ 
+https://dev.mysql.com/doc/refman/8.0/en/
 
 ---------------------------------------------- 
 
 ## How to install and run project 
  
+1. Install all package dependencies : 
 `composer install` 
  
 To be able to run this project, you will need to add a database to your mysql server. 
 Be sure to have the minimum mysql requirements. 
  
-Add databse to mysql 
+2.Add databse to your mysql server
 Check on the internet if you don’t know how to. 
 
-Complete file .env.exemple with your DB configuration, your username and your password. 
+3. Complete file .env.example with your database username and password
 
-Generate a JWT token with command ‘php artisan jwt:secret’ . 
+4 . Generate a JWT token with command ‘php artisan jwt:secret’
 
-Generate manually an app key and add it to APP_KEY. (Ex: ‘7J/hU/TT<?f=*p7J[U2Gh9_%~ojd8l’)  
+5. Generate manually an app key and add it to APP_KEY property in .env.example
+Example : ‘APP_KEY = 7J/hU/TT<?f=*p7J[U2Gh9_%~ojd8l’
 
-Rename file to “.env”. 
+6. Rename file “.env.example“ to “.env”
  
-Launch the server :  
+7. Launch the server :  
 `php -S localhost:8000 -t public` 
  
 To test the application open a browser (or Postman if you prefer) and enter this url : 
