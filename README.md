@@ -31,14 +31,14 @@ To be able to run this project, you will need to add a database to your mysql se
 Be sure to have the minimum mysql requirements.
 
 
-2. Add databse to your mysql server
+2. Add databse to your mysql server (file is located in the root of the project : green.sql)
 Check on the internet if you don’t know how to.
 
 
-3. Complete file .env.example with your database username and password
+3. Rename file “.env.example“ to “.env”
 
 
-4. Generate a JWT token with command ‘php artisan jwt:secret’
+4. Complete file .env with your database username and password
 
 
 5. Generate manually an app key and add it to APP_KEY property in .env.example
@@ -46,7 +46,7 @@ Check on the internet if you don’t know how to.
 Example : `APP_KEY = 7J/hU/TT<?f=*p7J[U2Gh9_%~ojd8l`
 
 
-6. Rename file “.env.example“ to “.env”
+6. Generate a JWT token with command ‘php artisan jwt:secret’
 
 
 7. Launch the server :
