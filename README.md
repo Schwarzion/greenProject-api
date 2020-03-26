@@ -1,34 +1,83 @@
-# greenProject-api
-2nd Aston project | Deadline : Sept. 14 | Php Api
+# GreenProject-api 
 
-----------------------------------------------
+2nd Aston project |  PHP API 
 
-# Lumen PHP Framework
+  
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://poser.pugx.org/laravel/lumen-framework/d/total.svg)](https://packagist.org/packages/larave\
-l/lumen-framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/lumen-framework/v/stable.svg)](https://packagist.org/packages\
-/laravel/lumen-framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/lumen-framework/v/unstable.svg)](https://packagist.org/pack\
-ages/laravel/lumen-framework)
-[![License](https://poser.pugx.org/laravel/lumen-framework/license.svg)](https://packagist.org/packages/laravel/lumen-\
-framework)
+## Requirements 
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. \
-We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pa\
-in out of development by easing common tasks used in the majority of web projects, such as routing, database abstracti\
-on, queueing, and caching.
+PHP: v7.2 (as a minimum for Lumen 6.0)  Install the following : 
 
-## Official Documentation
+OpenSSL PHP Extension 
 
-Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
+PDO PHP Extension 
 
-## Security Vulnerabilities
+Mbstring PHP Extension 
 
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. A\
-ll security vulnerabilities will be promptly addressed.
+Lumen: v6.0 (minimum) 
+https://lumen.laravel.com/docs/6.x/installation 
 
-## License
+Composer: we recommend that you use the latest version possible (at the moment 1.10.1) 
+https://getcomposer.org/ 
 
-The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+MySQL: v8.0. You can install any visual tool to help you. 
+https://dev.mysql.com/doc/refman/8.0/en/ 
+ 
+
+---------------------------------------------- 
+
+## How to install and run project 
+ 
+`Composer install` 
+ 
+To be able to run this project, you will need to add a database to your mysql server. 
+Be sure to have the minimum mysql requirements. 
+ 
+Add databse to mysql 
+Check on the internet if you don’t know how to. 
+ 
+
+Complete file .env.exemple with your DB configuration, your username and your password. 
+
+Generate a JWT token with command ‘php artisan jwt:secret’ . 
+ 
+Generate manually an app key and add it to APP_KEY. (Ex: ‘7J/hU/TT<?f=*p7J[U2Gh9_%~ojd8l’)  
+
+Rename file to “.env”. 
+ 
+Launch the server :  
+`php -S localhost:8000 -t public` 
+ 
+
+---------------------------------------------- 
+
+ 
+
+# Lumen PHP Framework 
+
+ Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. \ 
+
+We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pa\ 
+
+in out of development by easing common tasks used in the majority of web projects, such as routing, database abstracti\ 
+
+on, queueing, and caching. 
+
+## Official Documentation  
+
+Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).  
+
+## License 
+
+The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT). 
+
+ 
+## Artisan 
+ 
+Check available commandes : 
+` php artisan list` 
+
+
+---------------------------------------------- 
+
+If you encounter any problem using this project, feel free to post a new issue on Github
