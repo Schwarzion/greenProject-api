@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Tip;
+use App\models\Tip;
 use Illuminate\Http\Request;
 
 class TipController extends Controller
