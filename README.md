@@ -31,7 +31,7 @@ To be able to run this project, you will need to add a database to your mysql se
 Be sure to have the minimum mysql requirements.
 
 
-2. Add database to your mysql server (file is located in the root of the project : green.sql)
+2. Add database to your mysql server (file is located in the root of the project : database/green.sql)
 
 Check on the internet if you don’t know how to.
 
@@ -87,7 +87,7 @@ The Lumen framework is open-sourced software licensed under the [MIT license](ht
 ## Artisan 
  
 Check available commandes : 
-` php artisan list` 
+`php artisan list` 
 
 
 ---------------------------------------------- 
