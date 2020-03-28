@@ -48,9 +48,12 @@ class TipService extends Service
     public function create(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'desc' => 'required',
+            'name' => 'required|unique:tip,name|max:45',
+            'desc' => 'required|max:120',
         ]);
+
+
+
         return response()->json([
             Tip::create($request->input()),
         ], 200);
@@ -81,8 +84,8 @@ class TipService extends Service
     public function update(Request $request, int $id)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'desc' => 'required',
+            'name' => 'required|unique:tip,name|max:45',
+            'desc' => 'required|max:120',
         ]);
 
         return response()->json([
