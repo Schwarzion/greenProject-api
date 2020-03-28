@@ -44,23 +44,23 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     ]);
     //Get all tips
     $router->get('allTips', [
-        'as' => 'allTips', 'uses' => 'TipController@getAllTips',
+        'as' => 'allTips', 'uses' => 'TipController@index',
     ]);
     //Get one tips
     $router->get('tip/{id}', [
-        'as' => 'tip', 'uses' => 'TipController@getTip',
+        'as' => 'tip', 'uses' => 'TipController@show',
     ]);
     //Add tip
     $router->post('addTip', [
-        'as' => 'alltips', 'uses' => 'TipController@addTip',
+        'as' => 'alltips', 'uses' => 'TipController@create',
     ]);
     //Delete tip
     $router->get('deleteTip/{id}', [
-        'as' => 'deleteTip', 'uses' => 'TipController@deleteTip',
+        'as' => 'deleteTip', 'uses' => 'TipController@delete',
     ]);
     //Edit tip
-    $router->post('editTip/{id}', [
-        'as' => 'editTip', 'uses' => 'TipController@updateTip',
+    $router->put('editTip/{id}', [
+        'as' => 'editTip', 'uses' => 'TipController@update',
     ]);
 
 });

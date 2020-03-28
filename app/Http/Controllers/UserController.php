@@ -2,7 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\User;
+use App\models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -11,16 +11,10 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        //Midleware use example to protect controller access form unauthenticated users
-        //this->middleware('auth:api'); //Should use it + add exception for create
+        $this->middleware('auth', ['except' => ['create']]); //Should use it + add exception for create
     }
-    /**
-     * Create a new user
-     *
-     * @return \Illuminate\Http\Response
-     */
 
-    public function create(Request $request)
+    public function checkRegister(Request $request)
     {
         $this->validate($request, [
             'firstName' => 'required|max:30|alpha_dash',
@@ -36,16 +30,23 @@ class UserController extends Controller
             'phone' => 'required|max:10|alpha_num',
             //todo : add password confirmation ('confirmed')
         ]);
+    }
 
-        
+    /**
+     * Create a new user
+     *
+     * @return \Illuminate\Http\Response
+     */
 
+    public function create(Request $request)
+    {
         $user = User::create([
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
             'api_token' => Str::random(60),
             'firstName' => $request->input('firstName'),
             'lastName' => $request->input('lastName'),
-            'alias' => $request->input('email'),
+            'alias' => $request->input('alias'),
             'address' => $request->input('address'),
             'city' => $request->input('city'),
             'postalCode' => $request->input('postalCode'),
