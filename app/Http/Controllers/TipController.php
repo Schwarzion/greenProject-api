@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\models\Tip;
 use Illuminate\Http\Request;
+use App\Http\Services\TipService;
 
 class TipController extends Controller
 {
@@ -15,6 +15,7 @@ class TipController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->tipService = new TipService();
     }
 
     /**
@@ -22,11 +23,9 @@ class TipController extends Controller
      * 
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getAllTips()
+    public function index()
     {
-        return response()->json([
-            'tips' => Tip::all(),
-        ], 200);
+        return $this->tipService->getAll();
     }
 
     /**
@@ -36,11 +35,9 @@ class TipController extends Controller
      * 
      * @return \Illuminate\Http\JsonResponse
      */
-    public function deleteTip($id)
+    public function delete($id)
     {
-        return response()->json([
-            Tip::whereId($id)->delete($id),
-        ], 200);
+        return $this->tipService->delete($id);
     }
 
     /**
@@ -50,15 +47,9 @@ class TipController extends Controller
      * 
      * @return \Illuminate\Http\JsonResponse
      */
-    public function addTip(Request $request)
+    public function create(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'desc' => 'required',
-        ]);
-        return response()->json([
-            Tip::create($request->input()),
-        ], 200);
+        return $this->tipService->create($request);
     }
 
     /**
@@ -68,11 +59,9 @@ class TipController extends Controller
      * 
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getTip($id)
+    public function show($id)
     {
-        return response()->json([
-            Tip::findOrFail($id),
-        ], 200);
+        return $this->tipService->show($id);
     }
 
     /**
@@ -83,14 +72,8 @@ class TipController extends Controller
      * 
      * @return \Illuminate\Http\JsonResponse
      */
-    public function updateTip(Request $request, $id)
-    {
-        $this->validate($request, [
-            'name' => 'required',
-            'desc' => 'required',
-        ]);
-        return response()->json([
-            Tip::whereId($id)->update($request->input()),
-        ], 200);
+    public function update(Request $request, $id)
+    {   
+        return $this->tipService->update($request, $id);
     }
 }

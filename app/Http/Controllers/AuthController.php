@@ -74,19 +74,4 @@ class AuthController extends Controller
         return $this->respondWithToken(Auth::refresh());
     }
 
-    /**
-     * Get the token array structure.
-     *
-     * @param  string $token
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    protected function respondWithToken($token)
-    {
-        return response()->json([
-            'token' => $token, //Create token
-            'token_type' => 'bearer',
-            'expires_in' => Auth::factory()->getTTL() * 60, //Set time
-        ], 200);
-    }
 }
