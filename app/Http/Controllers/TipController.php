@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\models\Tip;
 use Illuminate\Http\Request;
 use App\Http\Services\TipService;
+
 class TipController extends Controller
 {
     /**
@@ -74,6 +74,6 @@ class TipController extends Controller
      */
     public function update(Request $request, $id)
     {   
-        return $this->tipService->show($request, $id);
+        return $this->tipService->update($request, $id);
     }
 }

@@ -2,8 +2,9 @@
 
 namespace App\Http\Services;
 
-use Illuminate\Http\Request;
 use App\models\Tip;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class TipService extends Service
 {
@@ -47,16 +48,21 @@ class TipService extends Service
      */
     public function create(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required|unique:tip,name|max:45',
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:45',
             'desc' => 'required|max:120',
         ]);
-
-
-
-        return response()->json([
-            Tip::create($request->input()),
-        ], 200);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'ErrorCode' => 1,
+                'error' => $validator->errors()->messages(),
+            ], 400);
+        } else {
+            return response()->json([
+                Tip::create($request->input()),
+            ], 200);
+        }
     }
 
     /**
@@ -81,15 +87,22 @@ class TipService extends Service
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'name' => 'required|unique:tip,name|max:45',
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:45',
             'desc' => 'required|max:120',
         ]);
-
-        return response()->json([
-            Tip::whereId($id)->update($request->input()),
-        ], 200);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'ErrorCode' => 1,
+                'error' => $validator->errors()->messages(),
+            ], 400);
+        } else {
+            return response()->json([
+                Tip::whereId($id)->update($request->input()),
+            ], 200);
+        }
     }
 }
