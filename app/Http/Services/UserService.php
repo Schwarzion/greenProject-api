@@ -4,6 +4,7 @@ namespace App\Http\Services;
 
 use App\models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class UserService extends Service
@@ -20,8 +21,9 @@ class UserService extends Service
      */
     public function getAll()
     {
+        //Return empty array if no user are present in database
         return response()->json([
-            User::all(),
+            User::all(), 
         ], 200);
     }
 
@@ -34,9 +36,16 @@ class UserService extends Service
      */
     public function delete(int $id)
     {
-        return response()->json([
-            User::whereId($id)->delete($id),
-        ], 200);
+        $delete = User::whereId($id)->delete($id);
+        if ($delete) {
+            return response()->json([
+                'user has been deleted',
+            ], 200);
+        } else {
+            return response()->json([
+                'user cannot be deleted, might not exist',
+            ], 400);
+        }
     }
 
     /**
@@ -46,7 +55,7 @@ class UserService extends Service
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function create(Request $request)
+    public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'firstName' => 'required|max:30|alpha_dash',
@@ -69,9 +78,29 @@ class UserService extends Service
                 'error' => $validator->errors()->messages(),
             ], 400);
         } else {
-            return response()->json([
-                User::create($request->input()),
-            ], 200);
+            $user = User::create([
+                'email' => $request->input('email'),
+                'password' => Hash::make($request->input('password')),
+                'firstName' => $request->input('firstName'),
+                'lastName' => $request->input('lastName'),
+                'alias' => $request->input('email'),
+                'address' => $request->input('address'),
+                'city' => $request->input('city'),
+                'postalCode' => $request->input('postalCode'),
+                'birthday' => $request->input('birthday'),
+                'sexe' => $request->input('sexe'),
+                'phone' => $request->input('phone'),
+            ]);
+
+            if ($user->save()) {
+                return response()->json([
+                    'user' => $user,
+                ], 200);
+            } else {
+                return response()->json([
+                    "Cannot register user",
+                ], 409);
+            }
         }
     }
 
@@ -84,9 +113,15 @@ class UserService extends Service
      */
     public function show(int $id)
     {
+        $user = User::find($id);
+        if ($user) {
+            return response()->json([
+                'user' => $user,
+            ], 200);
+        }
         return response()->json([
-            User::findOrFail($id),
-        ], 200);
+            'User was not found',
+        ], 404);
     }
 
     /**
