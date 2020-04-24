@@ -6,7 +6,6 @@ class UserTest extends TestCase
 {
     use WithoutMiddleware; //Doesn't need specific middleware (auth / role)
 
-    private $id;
     /**
      * api/register
      *
@@ -50,11 +49,12 @@ class UserTest extends TestCase
      *
      * @test
      */
-    // public function show()
-    // {
-    //     $response = $this->call('GET', '/api/user/'+$this->id);
-    //     $this->assertEquals(200, $response->status());
-    // }
+    public function show()
+    {
+        $user = User::where('email', 'testmail@test.fr')->first();
+        $response = $this->call('GET', '/api/user/' . $user->id);
+        $this->assertEquals(200, $response->status());
+    }
 
     /**
      * api/editUser/:id
@@ -64,10 +64,9 @@ class UserTest extends TestCase
     public function edit()
     {
         $user = User::where('email', 'testmail@test.fr')->first();
-        $response = $this->call('PUT', '/api/editUser/'. $user->id, [
+        $response = $this->call('PUT', '/api/editUser/' . $user->id, [
             'email' => 'testmail2@test.fr',
         ]);
-        print_r($response->getContent());
         $this->assertEquals(200, $response->status());
     }
 
@@ -78,7 +77,7 @@ class UserTest extends TestCase
      */
     public function deleteUser()
     {
-        $user = User::where('email', 'testmail@test.fr')->first();
+        $user = User::where('email', 'testmail2@test.fr')->first();
         $response = $this->call('GET', '/api/deleteUser/' . $user->id);
         $this->assertEquals(200, $response->status());
     }

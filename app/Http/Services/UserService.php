@@ -155,7 +155,7 @@ class UserService extends Service
             ], 400);
         } else {
             return response()->json([
-                'user' => User::whereId($id)->update($request->input()),
+                'edited user' => User::whereId($id)->update($request->input()),
             ], 200);
         }
     }

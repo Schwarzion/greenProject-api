@@ -14,7 +14,7 @@ You can find all artisan commands by typing this :
 php artisan list
 
 Launch Testing: 
-vendor/bin/phpunit --testdox
+vendor/bin/phpunit --testdox --debug (si besoin)
 
 
 Validation option list (useful for forms) : 
