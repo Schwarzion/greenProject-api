@@ -133,18 +133,18 @@ class UserService extends Service
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'firstName' => 'required|max:30|alpha_dash',
-            'lastName' => 'required|max:30|alpha_dash',
-            'alias' => 'required|max:20|unique:user,alias',
-            'email' => 'required|max:89|email|unique:user,email',
-            'password' => 'required|max:50',
-            'confirmPassword' => 'required|max:50',
-            'address' => 'required|max:60',
-            'city' => 'required|max:30|alpha_dash',
-            'postalCode' => 'required|max:5|alpha_num',
-            'birthday' => 'required|date|before:today',
-            'sexe' => 'required|boolean',
-            'phone' => 'required|max:10|alpha_num',
+            'firstName' => 'min:3|max:30|alpha_dash',
+            'lastName' => 'min:3|max:30|alpha_dash',
+            'alias' => 'min:3|max:20|unique:user,alias',
+            'email' => 'min:3|max:89|email|unique:user,email',
+            'password' => 'min:3|max:50',
+            'confirmPassword' => 'min:3|max:50',
+            'address' => 'min:3|max:60',
+            'city' => 'min:3|max:30|alpha_dash',
+            'postalCode' => 'min:5|max:5|alpha_num',
+            'birthday' => 'date|before:today',
+            'sexe' => 'min:1|boolean',
+            'phone' => 'min:10|max:10|alpha_num',
         ]);
 
         if ($validator->fails()) {
@@ -155,7 +155,7 @@ class UserService extends Service
             ], 400);
         } else {
             return response()->json([
-                User::whereId($id)->update($request->input()),
+                'user' => User::whereId($id)->update($request->input()),
             ], 200);
         }
     }

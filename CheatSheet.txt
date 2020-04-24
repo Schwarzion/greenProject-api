@@ -13,6 +13,8 @@ php artisan tinker
 You can find all artisan commands by typing this : 
 php artisan list
 
+Launch Testing: 
+vendor/bin/phpunit --testdox
 
 
 Validation option list (useful for forms) : 
