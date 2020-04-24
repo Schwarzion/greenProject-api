@@ -28,10 +28,10 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('profile', ['as' => 'profile', 'uses' => 'AuthController@me']);
     //Tips
     $router->post('register', ['as' => 'register', 'uses' => 'UserController@create']);
-    $router->get('allUser', ['as' => 'allTips', 'uses' => 'UserController@index']);
-    $router->get('user/{id}', ['as' => 'tip', 'uses' => 'UserController@show']);
-    $router->get('deleteUser/{id}', ['as' => 'deleteTip', 'uses' => 'UserController@delete']);
-    $router->put('editUser/{id}', ['as' => 'editTip', 'uses' => 'UserController@update']);
+    $router->get('allUser', ['as' => 'allUser', 'uses' => 'UserController@index']);
+    $router->get('user/{id}', ['as' => 'user', 'uses' => 'UserController@show']);
+    $router->get('deleteUser/{id}', ['as' => 'deleteUser', 'uses' => 'UserController@delete']);
+    $router->put('editUser/{id}', ['as' => 'editUser', 'uses' => 'UserController@update']);
     //Tips
     $router->get('allTips', ['as' => 'allTips', 'uses' => 'TipController@index']);
     $router->get('tip/{id}', ['as' => 'tip', 'uses' => 'TipController@show']);

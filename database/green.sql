@@ -166,7 +166,6 @@ CREATE TABLE `user` (
   `lastName` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `alias` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `level` int(11) NOT NULL DEFAULT 1,
-  `api_token` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
   `userStatus` smallint(6) NOT NULL DEFAULT 1,
   `address` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
   `city` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,

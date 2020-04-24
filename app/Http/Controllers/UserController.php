@@ -20,7 +20,7 @@ class UserController extends Controller
 
     public function create(Request $request)
     {
-        return $this->userService->create($request);
+        return $this->userService->register($request);
     }
 
     /**
