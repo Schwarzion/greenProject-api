@@ -20,9 +20,7 @@ class TipService extends Service
      */
     public function getAll()
     {
-        return response()->json([
-            Tip::all(),
-        ], 200);
+        return response()->json(Tip::all(), 200);
     }
 
     /**
@@ -34,9 +32,16 @@ class TipService extends Service
      */
     public function delete(int $id)
     {
-        return response()->json([
-            Tip::whereId($id)->delete($id),
-        ], 200);
+        $delete = Tip::whereId($id)->delete($id);
+        if ($delete) {
+            return response()->json([
+                'tip has been deleted',
+            ], 200);
+        } else {
+            return response()->json([
+                'user tip be deleted, might not exist',
+            ], 400);
+        }
     }
 
     /**
@@ -46,7 +51,7 @@ class TipService extends Service
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function create(Request $request)
+    public function newTip(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:45',
@@ -74,9 +79,15 @@ class TipService extends Service
      */
     public function show(int $id)
     {
+        $tip = Tip::find($id);
+        if ($tip) {
+            return response()->json([
+                'tip' => $tip,
+            ], 200);
+        }
         return response()->json([
-            Tip::findOrFail($id),
-        ], 200);
+            'Tip was not found',
+        ], 404);
     }
 
     /**
@@ -89,20 +100,25 @@ class TipService extends Service
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|max:45',
-            'desc' => 'required|max:120',
-        ]);
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => false,
-                'ErrorCode' => 1,
-                'error' => $validator->errors()->messages(),
-            ], 400);
+        $tip = Tip::find($id);
+        if ($tip) {
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|max:45',
+                'desc' => 'required|max:120',
+            ]);
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'ErrorCode' => 1,
+                    'error' => $validator->errors()->messages(),
+                ], 400);
+            } else {
+                return response()->json([
+                    Tip::whereId($id)->update($request->input()),
+                ], 200);
+            }
         } else {
-            return response()->json([
-                Tip::whereId($id)->update($request->input()),
-            ], 200);
+            return response()->json(['Tip was not found'], 400);
         }
     }
 }

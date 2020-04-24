@@ -49,7 +49,7 @@ class TipController extends Controller
      */
     public function create(Request $request)
     {
-        return $this->tipService->create($request);
+        return $this->tipService->newTip($request);
     }
 
     /**

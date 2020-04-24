@@ -22,9 +22,7 @@ class UserService extends Service
     public function getAll()
     {
         //Return empty array if no user are present in database
-        return response()->json([
-            User::all(), 
-        ], 200);
+        return response()->json(User::all(), 200);
     }
 
     /**
