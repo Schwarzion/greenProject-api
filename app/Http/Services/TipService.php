@@ -23,7 +23,8 @@ class TipService extends Service
     {
         return [
             'status' => true,
-            'tips' => Tip::all()
+            'tips' => Tip::all(),
+            'msg' => 'list of tips'
         ];
     }
 
@@ -40,13 +41,13 @@ class TipService extends Service
         if ($delete) {
             return [
                 'status' => true,
-                'msg' => 'tip has been deleted',
+                'msg' => "tip {$id} has been deleted",
             ];
         } else {
             return [
                 'status' => false,
                 'ErrorCode' => 1,
-                'msg' => 'user tip be deleted, might not exist',
+                'msg' => "user tip {$id} not found",
             ];
         }
     }
@@ -74,7 +75,7 @@ class TipService extends Service
             return [
                 'status' => true,
                 'tip' => Tip::create($request->input()),
-                'msg' => 'Tip has been sucessfully created',
+                'msg' => 'tip has been sucessfully created',
             ];
         }
     }
@@ -93,13 +94,13 @@ class TipService extends Service
             return [
                 'status' => true,
                 'tip' => $tip,
-                'msg' => 'Tip has been found',
+                'msg' => "tip {$id} has been found",
             ];
         }
         return [
             'status' => false,
             'ErrorCode' => 1,
-            'msg' => 'Tip was not found',
+            'msg' => "tip {$id} was not found",
         ];
     }
 
@@ -129,14 +130,14 @@ class TipService extends Service
                 return [
                     'status' => true,
                     'tip' => Tip::whereId($id)->update($request->input()),
-                    'msg' => 'Tip has been found',
+                    'msg' => "tip {$id} has been updated",
                 ];
             }
         } else {
             return [
                 'status' => false,
                 'ErrorCode' => 1,
-                'msg' => 'Tip was not found',
+                'msg' => "tip {$id} was not found",
             ];
         }
     }

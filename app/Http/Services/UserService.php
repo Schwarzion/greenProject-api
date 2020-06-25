@@ -43,13 +43,13 @@ class UserService extends Service
         if ($delete) {
             return [
                 'status' => true,
-                'msg ' => 'user has been deleted',
+                'msg ' => "user {$id} has been deleted",
             ];
         } else {
             return [
                 'status' => false,
                 'ErrorCode' => 1,
-                'msg' => 'user cannot be deleted, might not exist',
+                'msg' => "user {$id} cannot be deleted, might not exist",
             ];
         }
     }
@@ -102,13 +102,13 @@ class UserService extends Service
                 return [
                     'status' => true,
                     'user' => $user,
-                    'msg' => 'User has been created',
+                    'msg' => 'user has been successfully created',
                 ];
             } else {
                 return [
                     'status' => false,
                     'ErrorCode' => 1,
-                    'msg' => 'Cannot save user',
+                    'msg' => 'cannot save user',
                 ];
             }
         }
@@ -128,13 +128,13 @@ class UserService extends Service
             return [
                 'status' => true,
                 'user' => $user,
-                'msg' => 'User has been found',
+                'msg' => "user {$id} has been found",
             ];
         }
         return [
             'status' => false,
             'ErrorCode' => 1,
-            'msg' => 'User was not found',
+            'msg' => "user {$id} was not found",
         ];
     }
 
@@ -173,7 +173,7 @@ class UserService extends Service
             return [
                 'status' => true,
                 'user' => User::whereId($id)->update($request->input()),
-                'msg' => 'User has been updated'
+                'msg' => "user {$id} has been updated"
             ];
         }
     }
