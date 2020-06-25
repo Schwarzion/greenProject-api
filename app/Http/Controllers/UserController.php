@@ -20,7 +20,7 @@ class UserController extends Controller
 
     public function create(Request $request)
     {
-        return $this->userService->register($request);
+        return response()->json($this->userService->register($request));
     }
 
     /**
@@ -30,7 +30,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return $this->userService->getAll();
+        return  response()->json($this->userService->getAll());
     }
 
     /**
@@ -42,7 +42,7 @@ class UserController extends Controller
      */
     public function delete($id)
     {
-        return $this->userService->delete($id);
+        return response()->json($this->userService->delete($id));
     }
 
     /**
@@ -54,7 +54,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return $this->userService->show($id);
+        return response()->json($this->userService->show($id));
     }
 
     /**
@@ -67,6 +67,6 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return $this->userService->update($request, $id);
+        return response()->json($this->userService->update($request, $id));
     }
 }
