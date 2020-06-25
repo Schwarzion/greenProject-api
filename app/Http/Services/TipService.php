@@ -15,12 +15,17 @@ class TipService extends Service
 
     /**
      * Get all tips
+     * Return empty array if no user are present in database
      *
      * @return \Illuminate\Http\JsonResponse
      */
     public function getAll()
     {
-        return response()->json(Tip::all(), 200);
+        return [
+            'status' => true,
+            'tips' => Tip::all(),
+            'msg' => 'list of tips'
+        ];
     }
 
     /**
@@ -34,13 +39,16 @@ class TipService extends Service
     {
         $delete = Tip::whereId($id)->delete($id);
         if ($delete) {
-            return response()->json([
-                'tip has been deleted',
-            ], 200);
+            return [
+                'status' => true,
+                'msg' => "tip {$id} has been deleted",
+            ];
         } else {
-            return response()->json([
-                'user tip be deleted, might not exist',
-            ], 400);
+            return [
+                'status' => false,
+                'ErrorCode' => 1,
+                'msg' => "user tip {$id} not found",
+            ];
         }
     }
 
@@ -58,15 +66,17 @@ class TipService extends Service
             'desc' => 'required|max:120',
         ]);
         if ($validator->fails()) {
-            return response()->json([
+            return [
                 'status' => false,
                 'ErrorCode' => 1,
-                'error' => $validator->errors()->messages(),
-            ], 400);
+                'msg' => $validator->errors()->messages(),
+            ];
         } else {
-            return response()->json([
-                Tip::create($request->input()),
-            ], 200);
+            return [
+                'status' => true,
+                'tip' => Tip::create($request->input()),
+                'msg' => 'tip has been sucessfully created',
+            ];
         }
     }
 
@@ -81,13 +91,17 @@ class TipService extends Service
     {
         $tip = Tip::find($id);
         if ($tip) {
-            return response()->json([
+            return [
+                'status' => true,
                 'tip' => $tip,
-            ], 200);
+                'msg' => "tip {$id} has been found",
+            ];
         }
-        return response()->json([
-            'Tip was not found',
-        ], 404);
+        return [
+            'status' => false,
+            'ErrorCode' => 1,
+            'msg' => "tip {$id} was not found",
+        ];
     }
 
     /**
@@ -107,18 +121,24 @@ class TipService extends Service
                 'desc' => 'required|max:120',
             ]);
             if ($validator->fails()) {
-                return response()->json([
+                return [
                     'status' => false,
                     'ErrorCode' => 1,
-                    'error' => $validator->errors()->messages(),
-                ], 400);
+                    'msg' => $validator->errors()->messages(),
+                ];
             } else {
-                return response()->json([
-                    Tip::whereId($id)->update($request->input()),
-                ], 200);
+                return [
+                    'status' => true,
+                    'tip' => Tip::whereId($id)->update($request->input()),
+                    'msg' => "tip {$id} has been updated",
+                ];
             }
         } else {
-            return response()->json(['Tip was not found'], 400);
+            return [
+                'status' => false,
+                'ErrorCode' => 1,
+                'msg' => "tip {$id} was not found",
+            ];
         }
     }
 }

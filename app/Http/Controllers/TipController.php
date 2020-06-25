@@ -25,7 +25,7 @@ class TipController extends Controller
      */
     public function index()
     {
-        return $this->tipService->getAll();
+        return response()->json($this->tipService->getAll());
     }
 
     /**
@@ -37,7 +37,7 @@ class TipController extends Controller
      */
     public function delete($id)
     {
-        return $this->tipService->delete($id);
+        return response()->json($this->tipService->delete($id));
     }
 
     /**
@@ -49,7 +49,7 @@ class TipController extends Controller
      */
     public function create(Request $request)
     {
-        return $this->tipService->newTip($request);
+        return response()->json($this->tipService->newTip($request));
     }
 
     /**
@@ -61,7 +61,7 @@ class TipController extends Controller
      */
     public function show($id)
     {
-        return $this->tipService->show($id);
+        return response()->json($this->tipService->show($id));
     }
 
     /**
@@ -74,6 +74,6 @@ class TipController extends Controller
      */
     public function update(Request $request, $id)
     {   
-        return $this->tipService->update($request, $id);
+        return response()->json($this->tipService->update($request, $id));
     }
 }

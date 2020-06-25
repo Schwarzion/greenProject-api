@@ -73,5 +73,4 @@ class AuthController extends Controller
     {
         return $this->respondWithToken(Auth::refresh());
     }
-
 }

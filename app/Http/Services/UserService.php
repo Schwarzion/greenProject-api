@@ -16,13 +16,18 @@ class UserService extends Service
 
     /**
      * Get all tips
+     * Return empty array if no user are present in database
      *
      * @return \Illuminate\Http\JsonResponse
      */
     public function getAll()
     {
-        //Return empty array if no user are present in database
-        return response()->json(User::all(), 200);
+ 
+        return [
+            'status' => true,
+            'users' => User::all(),
+            'msg ' => 'list of user',
+        ];
     }
 
     /**
@@ -36,13 +41,16 @@ class UserService extends Service
     {
         $delete = User::whereId($id)->delete($id);
         if ($delete) {
-            return response()->json([
-                'user has been deleted',
-            ], 200);
+            return [
+                'status' => true,
+                'msg ' => "user {$id} has been deleted",
+            ];
         } else {
-            return response()->json([
-                'user cannot be deleted, might not exist',
-            ], 400);
+            return [
+                'status' => false,
+                'ErrorCode' => 1,
+                'msg' => "user {$id} cannot be deleted, might not exist",
+            ];
         }
     }
 
@@ -70,11 +78,11 @@ class UserService extends Service
             'phone' => 'required|max:10|alpha_num',
         ]);
         if ($validator->fails()) {
-            return response()->json([
+            return [
                 'status' => false,
                 'ErrorCode' => 1,
-                'error' => $validator->errors()->messages(),
-            ], 400);
+                'msg' => $validator->errors()->messages(),
+            ];
         } else {
             $user = User::create([
                 'email' => $request->input('email'),
@@ -91,13 +99,17 @@ class UserService extends Service
             ]);
 
             if ($user->save()) {
-                return response()->json([
+                return [
+                    'status' => true,
                     'user' => $user,
-                ], 200);
+                    'msg' => 'user has been successfully created',
+                ];
             } else {
-                return response()->json([
-                    "Cannot register user",
-                ], 409);
+                return [
+                    'status' => false,
+                    'ErrorCode' => 1,
+                    'msg' => 'cannot save user',
+                ];
             }
         }
     }
@@ -113,13 +125,17 @@ class UserService extends Service
     {
         $user = User::find($id);
         if ($user) {
-            return response()->json([
+            return [
+                'status' => true,
                 'user' => $user,
-            ], 200);
+                'msg' => "user {$id} has been found",
+            ];
         }
-        return response()->json([
-            'User was not found',
-        ], 404);
+        return [
+            'status' => false,
+            'ErrorCode' => 1,
+            'msg' => "user {$id} was not found",
+        ];
     }
 
     /**
@@ -133,30 +149,32 @@ class UserService extends Service
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'firstName' => 'required|max:30|alpha_dash',
-            'lastName' => 'required|max:30|alpha_dash',
-            'alias' => 'required|max:20|unique:user,alias',
-            'email' => 'required|max:89|email|unique:user,email',
-            'password' => 'required|max:50',
-            'confirmPassword' => 'required|max:50',
-            'address' => 'required|max:60',
-            'city' => 'required|max:30|alpha_dash',
-            'postalCode' => 'required|max:5|alpha_num',
-            'birthday' => 'required|date|before:today',
-            'sexe' => 'required|boolean',
-            'phone' => 'required|max:10|alpha_num',
+            'firstName' => 'min:3|max:30|alpha_dash',
+            'lastName' => 'min:3|max:30|alpha_dash',
+            'alias' => 'min:3|max:20|unique:user,alias',
+            'email' => 'min:3|max:89|email|unique:user,email',
+            'password' => 'min:3|max:50',
+            'confirmPassword' => 'min:3|max:50',
+            'address' => 'min:3|max:60',
+            'city' => 'min:3|max:30|alpha_dash',
+            'postalCode' => 'min:5|max:5|alpha_num',
+            'birthday' => 'date|before:today',
+            'sexe' => 'min:1|boolean',
+            'phone' => 'min:10|max:10|alpha_num',
         ]);
 
         if ($validator->fails()) {
-            return response()->json([
+            return [
                 'status' => false,
                 'ErrorCode' => 1,
-                'error' => $validator->errors()->messages(),
-            ], 400);
+                'msg' => $validator->errors()->messages(),
+            ];
         } else {
-            return response()->json([
-                User::whereId($id)->update($request->input()),
-            ], 200);
+            return [
+                'status' => true,
+                'user' => User::whereId($id)->update($request->input()),
+                'msg' => "user {$id} has been updated"
+            ];
         }
     }
 }
