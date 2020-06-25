@@ -1,10 +1,11 @@
 <?php
 use App\models\User;
 use Laravel\Lumen\Testing\WithoutMiddleware;
-
+use Laravel\Lumen\Testing\DatabaseTransactions;
 class UserTest extends TestCase
 {
     use WithoutMiddleware; //Doesn't need specific middleware (auth / role)
+    use DatabaseTransactions; //Rollback database after each tests
 
     /**
      * api/register

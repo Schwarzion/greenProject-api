@@ -16,13 +16,18 @@ class UserService extends Service
 
     /**
      * Get all tips
+     * Return empty array if no user are present in database
      *
      * @return \Illuminate\Http\JsonResponse
      */
     public function getAll()
     {
-        //Return empty array if no user are present in database
-        return response()->json(User::all(), 200);
+ 
+        return [
+            'status' => true,
+            'users' => User::all(),
+            'msg ' => 'list of user',
+        ];
     }
 
     /**
@@ -36,13 +41,16 @@ class UserService extends Service
     {
         $delete = User::whereId($id)->delete($id);
         if ($delete) {
-            return response()->json([
-                'user has been deleted',
-            ], 200);
+            return [
+                'status' => true,
+                'msg ' => 'user has been deleted',
+            ];
         } else {
-            return response()->json([
-                'user cannot be deleted, might not exist',
-            ], 400);
+            return [
+                'status' => false,
+                'ErrorCode' => 1,
+                'msg' => 'user cannot be deleted, might not exist',
+            ];
         }
     }
 
@@ -70,11 +78,11 @@ class UserService extends Service
             'phone' => 'required|max:10|alpha_num',
         ]);
         if ($validator->fails()) {
-            return response()->json([
+            return [
                 'status' => false,
                 'ErrorCode' => 1,
-                'error' => $validator->errors()->messages(),
-            ], 400);
+                'msg' => $validator->errors()->messages(),
+            ];
         } else {
             $user = User::create([
                 'email' => $request->input('email'),
@@ -91,13 +99,17 @@ class UserService extends Service
             ]);
 
             if ($user->save()) {
-                return response()->json([
+                return [
+                    'status' => true,
                     'user' => $user,
-                ], 200);
+                    'msg' => 'User has been created',
+                ];
             } else {
-                return response()->json([
-                    "Cannot register user",
-                ], 409);
+                return [
+                    'status' => false,
+                    'ErrorCode' => 1,
+                    'msg' => 'Cannot save user',
+                ];
             }
         }
     }
@@ -113,13 +125,17 @@ class UserService extends Service
     {
         $user = User::find($id);
         if ($user) {
-            return response()->json([
+            return [
+                'status' => true,
                 'user' => $user,
-            ], 200);
+                'msg' => 'User has been found',
+            ];
         }
-        return response()->json([
-            'User was not found',
-        ], 404);
+        return [
+            'status' => false,
+            'ErrorCode' => 1,
+            'msg' => 'User was not found',
+        ];
     }
 
     /**
@@ -148,15 +164,17 @@ class UserService extends Service
         ]);
 
         if ($validator->fails()) {
-            return response()->json([
+            return [
                 'status' => false,
                 'ErrorCode' => 1,
-                'error' => $validator->errors()->messages(),
-            ], 400);
+                'msg' => $validator->errors()->messages(),
+            ];
         } else {
-            return response()->json([
-                'edited user' => User::whereId($id)->update($request->input()),
-            ], 200);
+            return [
+                'status' => true,
+                'user' => User::whereId($id)->update($request->input()),
+                'msg' => 'User has been updated'
+            ];
         }
     }
 }
