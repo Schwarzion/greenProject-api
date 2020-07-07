@@ -7,7 +7,7 @@ php artisan migrate
 Clear cache :
 php artisan cache:clear 
 
-Use Eloquent ORM in cli (SUPER USEFUL!!!!):
+Use Eloquent ORM (Also every php commands) in cli (SUPER USEFUL!!!!):
 php artisan tinker
 
 You can find all artisan commands by typing this : 

@@ -6,10 +6,16 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function __construct()
+    /**
+     * Create a new controller instance.
+     * User Service dependancy injection (strong typed)
+     *
+     * @return void
+     */
+    public function __construct(UserService $service)
     {
         $this->middleware('auth', ['except' => ['create']]); //Should use it + add exception for create
-        $this->userService = new UserService();
+        $this->userService = $service;
     }
 
     /**
@@ -17,7 +23,6 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
     public function create(Request $request)
     {
         return response()->json($this->userService->register($request));
@@ -30,7 +35,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return  response()->json($this->userService->getAll());
+        return response()->json($this->userService->getAll());
     }
 
     /**
