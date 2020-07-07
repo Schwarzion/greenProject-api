@@ -20,10 +20,12 @@ require_once __DIR__.'/../vendor/autoload.php';
 $app = new Laravel\Lumen\Application(
     dirname(__DIR__)
 );
+$app->configure('cors');
 
 $app->withFacades();
 
 $app->withEloquent();
+
 
 /*
 |--------------------------------------------------------------------------
@@ -61,8 +63,12 @@ $app->singleton(
 //     App\Http\Middleware\ExampleMiddleware::class
 // ]);
 
+$app->middleware([
+    Fruitcake\Cors\HandleCors::class
+]);
+
 $app->routeMiddleware([
-    'auth' => App\Http\Middleware\Authenticate::class,
+    'auth' => App\Http\Middleware\Authenticate::class
 ]);
 
 /*
@@ -82,6 +88,7 @@ $app->register(Appzcoder\LumenRoutesList\RoutesCommandServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(App\Providers\EventServiceProvider::class);
 $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
+$app->register(Fruitcake\Cors\CorsServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
