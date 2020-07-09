@@ -2,11 +2,11 @@
 
 namespace App\Http\Services;
 
-use App\models\Tip;
+use App\models\Quest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class TipService extends Service
+class QuestService extends Service
 {
     public function __construct()
     {
@@ -14,8 +14,8 @@ class TipService extends Service
     }
 
     /**
-     * Get all tips
-     * Return empty array if no user are present in database
+     * Get all quests
+     * Return empty array if no quests are present in database
      *
      * @return \Illuminate\Http\JsonResponse
      */
