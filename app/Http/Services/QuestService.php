@@ -23,13 +23,13 @@ class QuestService extends Service
     {
         return [
             'status' => true,
-            'tips' => Tip::all(),
-            'msg' => 'list of tips',
+            'quests' => Quest::all(),
+            'msg' => 'list of quests',
         ];
     }
 
     /**
-     * Delete one tip
+     * Delete one quest
      *
      * @param $id (int)
      *
@@ -37,34 +37,39 @@ class QuestService extends Service
      */
     public function delete(int $id)
     {
-        $delete = Tip::whereId($id)->delete($id);
+        $delete = Quest::whereId($id)->delete($id);
         if ($delete) {
             return [
                 'status' => true,
-                'msg' => "tip {$id} has been deleted",
+                'msg' => "quest {$id} has been deleted",
             ];
         } else {
             return [
                 'status' => false,
                 'ErrorCode' => 1,
-                'msg' => "user tip {$id} not found",
+                'msg' => "quest {$id} not found",
             ];
         }
     }
 
     /**
-     * Add a tip
+     * Add a quest
      *
      * @param Illuminate\Http\Request
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function newTip(Request $request)
+    public function newQuest(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:45',
             'desc' => 'required|max:120',
+            'expAmount' => 'required|max:11|integer',
+            'minLevel' => 'required|max:11|integer',
+            'timeForQuest' => '',
+            'endDate' => 'required|date'
         ]);
+
         if ($validator->fails()) {
             return [
                 'status' => false,
@@ -74,14 +79,14 @@ class QuestService extends Service
         } else {
             return [
                 'status' => true,
-                'tip' => Tip::create($request->input()),
-                'msg' => 'tip has been sucessfully created',
+                'quest' => Quest::create($request->input()),
+                'msg' => 'quest has been sucessfully created',
             ];
         }
     }
 
     /**
-     * Get a Tip
+     * Get a Quest
      *
      * @param $id (int)
      *
@@ -89,18 +94,18 @@ class QuestService extends Service
      */
     public function show(int $id)
     {
-        $tip = Tip::find($id);
-        if ($tip) {
+        $quest = Quest::find($id);
+        if ($quest) {
             return [
                 'status' => true,
-                'tip' => $tip,
-                'msg' => "tip {$id} has been found",
+                'quest' => $quest,
+                'msg' => "quest {$id} has been found",
             ];
         }
         return [
             'status' => false,
             'ErrorCode' => 1,
-            'msg' => "tip {$id} was not found",
+            'msg' => "quest {$id} was not found",
         ];
     }
 
@@ -119,6 +124,10 @@ class QuestService extends Service
             $validator = Validator::make($request->all(), [
                 'name' => 'required|max:45',
                 'desc' => 'required|max:120',
+                'expAmount' => 'required|max:11|integer',
+                'minLevel' => 'required|max:11|integer',
+                'timeForQuest' => '',
+                'endDate' => 'required|date'
             ]);
             if ($validator->fails()) {
                 return [
@@ -129,16 +138,26 @@ class QuestService extends Service
             } else {
                 return [
                     'status' => true,
-                    'tip' => Tip::whereId($id)->update($request->input()),
-                    'msg' => "tip {$id} has been updated",
+                    'quest' => Quest::whereId($id)->update($request->input()),
+                    'msg' => "quest {$id} has been updated",
                 ];
             }
         } else {
             return [
                 'status' => false,
                 'ErrorCode' => 1,
-                'msg' => "tip {$id} was not found",
+                'msg' => "quest {$id} was not found",
             ];
         }
+    }
+
+    public function assignQuestToUser() 
+    {
+
+    }
+
+    public function getDeadline()
+    {
+        
     }
 }
