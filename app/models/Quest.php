@@ -15,7 +15,7 @@ class Quest extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'desc', 'expAmount', 'minLevel', 'timeForQuest', 'endDate', 'questStatus',
+       'name', 'desc', 'expAmount', 'minLevel', 'timeForQuest', 'endDate', 'questStatus'
     ];
 
     /**
@@ -24,7 +24,7 @@ class Quest extends Model
      * @var array
      */
     protected $hidden = [
-
+        
     ];
 
     protected $table = 'quest';
