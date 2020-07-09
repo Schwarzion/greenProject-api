@@ -122,12 +122,12 @@ class QuestService extends Service
         $quest = Quest::find($id);
         if ($quest) {
             $validator = Validator::make($request->all(), [
-                'name' => 'max:45',
-                'desc' => 'max:120',
-                'expAmount' => 'max:11|integer',
-                'minLevel' => 'max:11|integer',
+                'name' => 'required|max:45',
+                'desc' => 'required|max:120',
+                'expAmount' => 'required|max:11|integer',
+                'minLevel' => 'required|max:11|integer',
                 'timeForQuest' => '',
-                'endDate' => 'date'
+                'endDate' => 'required|date'
             ]);
             if ($validator->fails()) {
                 return [
