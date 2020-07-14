@@ -1,7 +1,7 @@
 <?php
-use App\models\User;
-use Laravel\Lumen\Testing\WithoutMiddleware;
 use Laravel\Lumen\Testing\DatabaseTransactions;
+use Laravel\Lumen\Testing\WithoutMiddleware;
+use App\models\User;
 class UserTest extends TestCase
 {
     use WithoutMiddleware; //Doesn't need specific middleware (auth / role)
@@ -43,6 +43,7 @@ class UserTest extends TestCase
             'password' => 'testPassword',
         ]);
         $this->assertEquals(200, $response->status());
+        $this->assertEquals('bearer', $response->getData()->token_type);
     }
 
     /**
@@ -78,7 +79,7 @@ class UserTest extends TestCase
      */
     public function deleteUser()
     {
-        $user = User::where('email', 'testmail2@test.fr')->first();
+        $user = User::where('email', 'testmail@test.fr')->first();
         $response = $this->call('GET', '/api/deleteUser/' . $user->id);
         $this->assertEquals(200, $response->status());
     }
@@ -88,7 +89,7 @@ class UserTest extends TestCase
      *
      * @test
      */
-    public function GetAllUser()
+    public function GetAll()
     {
         $response = $this->call('get', '/api/allUser');
         $this->assertEquals(200, $response->status());
