@@ -117,8 +117,8 @@ class TipService extends Service
         $tip = Tip::find($id);
         if ($tip) {
             $validator = Validator::make($request->all(), [
-                'name' => 'required|max:45',
-                'desc' => 'required|max:120',
+                'name' => 'min:2|max:45',
+                'desc' => 'min:2|max:120',
             ]);
             if ($validator->fails()) {
                 return [

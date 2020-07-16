@@ -9,13 +9,14 @@ class TipController extends Controller
 {
     /**
      * Create a new controller instance.
+     * Tip Service dependancy injection (strong typed)
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(TipService $service)
     {
         $this->middleware('auth');
-        $this->tipService = new TipService();
+        $this->tipService = $service;
     }
 
     /**
