@@ -26,7 +26,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('login', ['as' => 'login', 'uses' => 'AuthController@login']);
     $router->post('logout', ['as' => 'logout', 'uses' => 'AuthController@logout']);
     $router->get('profile', ['as' => 'profile', 'uses' => 'AuthController@me']);
-    //Tips
+    //Users
     $router->post('register', ['as' => 'register', 'uses' => 'UserController@create']);
     $router->get('allUser', ['as' => 'allUser', 'uses' => 'UserController@index']);
     $router->get('user/{id}', ['as' => 'user', 'uses' => 'UserController@show']);
@@ -37,5 +37,11 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('tip/{id}', ['as' => 'tip', 'uses' => 'TipController@show']);
     $router->post('addTip', ['as' => 'addTip', 'uses' => 'TipController@create']);
     $router->get('deleteTip/{id}', ['as' => 'deleteTip', 'uses' => 'TipController@delete']);
-    $router->post('editTip/{id}', ['as' => 'editTip', 'uses' => 'TipController@update']);
+    $router->put('editTip/{id}', ['as' => 'editTip', 'uses' => 'TipController@update']);
+    //Quests
+    $router->get('allQuests', ['as' => 'allQuests', 'uses' => 'QuestController@index']);
+    $router->get('quest/{id}', ['as' => 'quest', 'uses' => 'QuestController@show']);
+    $router->post('addQuest', ['as' => 'addQuest', 'uses' => 'QuestController@create']);
+    $router->get('deleteQuest/{id}', ['as' => 'deleteQuest', 'uses' => 'QuestController@delete']);
+    $router->put('editQuest/{id}', ['as' => 'editQuest', 'uses' => 'QuestController@update']);
 });
