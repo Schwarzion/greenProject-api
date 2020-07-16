@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Services\TipService;
+use App\Http\Services\QuestService;
 
 class QuestController extends Controller
 {
@@ -75,5 +75,25 @@ class QuestController extends Controller
     public function update(Request $request, $id)
     {   
         return response()->json($this->questService->update($request, $id));
+    }
+
+    /**
+     * Assign quest to user
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function assingQuestToUser()
+    {
+
+    }
+
+    /**
+     * Get deadline for selected quest
+
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getDeadline()
+    {
+
     }
 }
