@@ -37,7 +37,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('tip/{id}', ['as' => 'tip', 'uses' => 'TipController@show']);
     $router->post('addTip', ['as' => 'addTip', 'uses' => 'TipController@create']);
     $router->get('deleteTip/{id}', ['as' => 'deleteTip', 'uses' => 'TipController@delete']);
-    $router->put('editTip/{id}', ['as' => 'editTip', 'uses' => 'TipController@update']);
+    $router->post('editTip/{id}', ['as' => 'editTip', 'uses' => 'TipController@update']);
     //Quests
     $router->get('allQuests', ['as' => 'allQuests', 'uses' => 'QuestController@index']);
     $router->get('quest/{id}', ['as' => 'quest', 'uses' => 'QuestController@show']);
