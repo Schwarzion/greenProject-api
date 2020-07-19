@@ -54,4 +54,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     {
         return [];
     }
+
+    public function hasQuests() 
+    {
+        return $this->belongsToMany('App\models\Quest', 'userQuest', 'userId', 'questId');
+    }
 }
