@@ -43,5 +43,5 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('quest/{id}', ['as' => 'quest', 'uses' => 'QuestController@show']);
     $router->post('addQuest', ['as' => 'addQuest', 'uses' => 'QuestController@create']);
     $router->get('deleteQuest/{id}', ['as' => 'deleteQuest', 'uses' => 'QuestController@delete']);
-    $router->put('editQuest/{id}', ['as' => 'editQuest', 'uses' => 'QuestController@update']);
+    $router->post('editQuest/{id}', ['as' => 'editQuest', 'uses' => 'QuestController@update']);
 });
