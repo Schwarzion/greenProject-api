@@ -1,8 +1,8 @@
--- MariaDB dump 10.17  Distrib 10.4.12-MariaDB, for Linux (x86_64)
+-- MariaDB dump 10.17  Distrib 10.4.13-MariaDB, for Linux (x86_64)
 --
 -- Host: localhost    Database: greenDB
 -- ------------------------------------------------------
--- Server version	10.4.12-MariaDB
+-- Server version	10.4.13-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -15,12 +15,9 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-CREATE Database IF NOT EXISTS greenDB;
-
 --
 -- Table structure for table `level`
 --
-USE greenDB;
 
 DROP TABLE IF EXISTS `level`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -44,6 +41,30 @@ LOCK TABLES `level` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `migrations`
+--
+
+DROP TABLE IF EXISTS `migrations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `migrations` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `migrations`
+--
+
+LOCK TABLES `migrations` WRITE;
+/*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
+/*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `quest`
 --
 
@@ -56,7 +77,7 @@ CREATE TABLE `quest` (
   `desc` varchar(120) COLLATE utf8mb4_unicode_ci NOT NULL,
   `expAmount` int(11) NOT NULL,
   `minLevel` int(11) NOT NULL,
-  `timeForQuest` timestamp NOT NULL,
+  `timeForQuest` int(11) NOT NULL,
   `endDate` date NOT NULL,
   `questStatus` smallint(6) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`),
@@ -71,34 +92,6 @@ CREATE TABLE `quest` (
 LOCK TABLES `quest` WRITE;
 /*!40000 ALTER TABLE `quest` DISABLE KEYS */;
 /*!40000 ALTER TABLE `quest` ENABLE KEYS */;
-
-
-UNLOCK TABLES;
-
---
--- Table structure for table `tip`
---
-
-DROP TABLE IF EXISTS `tip`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tip` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `desc` varchar(120) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tipStatus` smallint(6) NOT NULL DEFAULT 1,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tip`
---
-
-LOCK TABLES `tip` WRITE;
-/*!40000 ALTER TABLE `tip` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tip` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -154,6 +147,33 @@ LOCK TABLES `roleUser` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `tip`
+--
+
+DROP TABLE IF EXISTS `tip`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tip` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `desc` varchar(120) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tipStatus` smallint(6) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tip`
+--
+
+LOCK TABLES `tip` WRITE;
+/*!40000 ALTER TABLE `tip` DISABLE KEYS */;
+INSERT INTO `tip` VALUES (1,'dazedez','zefzefzefze',1),(4,'test2','ceci est un test',1);
+/*!40000 ALTER TABLE `tip` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `user`
 --
 
@@ -179,8 +199,8 @@ CREATE TABLE `user` (
   `password` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
   `temparyPasswordValid` date DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_user` (`email`, `alias`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  UNIQUE KEY `unique_user` (`email`,`alias`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -189,6 +209,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,'Joe','Mama','test@mail.com',1,1,'420 Marble Street','Lille','59000','test@mail.com',1,'0752627592','1995-11-20',0,NULL,'$2y$10$ogL1nHZhVaRXpu1Z.vG3DOyT8iZyvnIN.WmDF9pUYd6xvrfOITowq',NULL),(12,'testName','testLastName','testmail@test.fr',1,1,'42 Rue du Test','testCity','75000','testmail@test.fr',1,'0123456789','2000-01-01',0,NULL,'$2y$10$8K976/XC.tSjmKKOTRD/9e1bgsYf0M/wkwRq0VLgaptNQcSw29fF2',NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -202,7 +223,7 @@ DROP TABLE IF EXISTS `userQuest`;
 CREATE TABLE `userQuest` (
   `questId` int(11) NOT NULL,
   `userId` int(11) NOT NULL,
-  `expire` date NOT NULL,
+  `expire` datetime NOT NULL,
   `status` smallint(6) NOT NULL DEFAULT 1,
   PRIMARY KEY (`questId`,`userId`),
   KEY `fkIdx_questId` (`questId`),
@@ -230,4 +251,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-03-09 13:26:00
+-- Dump completed on 2020-07-19 13:15:23
