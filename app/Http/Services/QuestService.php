@@ -110,7 +110,7 @@ class QuestService extends Service
     }
 
     /**
-     * Update tip
+     * Update quest
      *
      * @param Illuminate\Http\Request
      *        $id (int)
@@ -119,15 +119,15 @@ class QuestService extends Service
      */
     public function update(Request $request, $id)
     {
-        $tip = Tip::find($id);
-        if ($tip) {
+        $quest = Quest::find($id);
+        if ($quest) {
             $validator = Validator::make($request->all(), [
-                'name' => 'required|max:45',
-                'desc' => 'required|max:120',
-                'expAmount' => 'required|max:11|integer',
-                'minLevel' => 'required|max:11|integer',
+                'name' => 'max:45',
+                'desc' => 'max:120',
+                'expAmount' => 'max:11|integer',
+                'minLevel' => 'max:11|integer',
                 'timeForQuest' => '',
-                'endDate' => 'required|date'
+                'endDate' => 'date'
             ]);
             if ($validator->fails()) {
                 return [
