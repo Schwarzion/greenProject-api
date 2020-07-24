@@ -77,12 +77,12 @@ CREATE TABLE `quest` (
   `desc` varchar(120) COLLATE utf8mb4_unicode_ci NOT NULL,
   `expAmount` int(11) NOT NULL,
   `minLevel` int(11) NOT NULL,
-  `timeForQuest` int(11) NOT NULL,
+  `timeForQuest` int(11) DEFAULT NULL,
   `endDate` date NOT NULL,
   `questStatus` smallint(6) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,6 +91,7 @@ CREATE TABLE `quest` (
 
 LOCK TABLES `quest` WRITE;
 /*!40000 ALTER TABLE `quest` DISABLE KEYS */;
+INSERT INTO `quest` VALUES (1,'testQuest','Choppe ta bouteille',100,1,100000,'2030-12-31',1),(2,'Gourde','Achète une gourde ',5,2,100000,'2020-07-21',1),(4,'Gourde2','test',5,2,100000,'2020-07-21',1),(5,'Concert\'eau','Ramène ton ecocup au concert',20,2,100000,'2020-07-21',1),(6,'Courses en sac','Stop aux sacs platisques',30,2,100000,'2020-07-21',1),(7,'Dolce Vita','Jette ta machine à dosette, place à l\'itallienne',5,2,100000,'2020-07-21',1);
 /*!40000 ALTER TABLE `quest` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -160,7 +161,7 @@ CREATE TABLE `tip` (
   `tipStatus` smallint(6) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -169,7 +170,7 @@ CREATE TABLE `tip` (
 
 LOCK TABLES `tip` WRITE;
 /*!40000 ALTER TABLE `tip` DISABLE KEYS */;
-INSERT INTO `tip` VALUES (1,'dazedez','zefzefzefze',1),(4,'test2','ceci est un test',1);
+INSERT INTO `tip` VALUES (1,'dazedez','zefzefzefze',1),(4,'test2','ceci est un test',1),(40,'test4','ceci est un test',1),(42,'bitch pls','test',1),(44,'test22','ceci est un test',1),(45,'test3','ceci est un test',1),(46,'test24','ceci est un test',1),(47,'test27','ceci est un test',1),(48,'test423','ceci est un test',1),(49,'notATest','ceci est un test',1),(50,'42isTheKey','ceci est un test',1),(51,'itBurnsWhenIp','ceci est un test',1);
 /*!40000 ALTER TABLE `tip` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -239,6 +240,7 @@ CREATE TABLE `userQuest` (
 
 LOCK TABLES `userQuest` WRITE;
 /*!40000 ALTER TABLE `userQuest` DISABLE KEYS */;
+INSERT INTO `userQuest` VALUES (5,1,'2020-12-31 00:00:00',1),(6,1,'2020-12-31 00:00:00',1),(6,12,'2020-12-31 00:00:00',1),(7,1,'2020-12-31 00:00:00',1),(7,12,'2020-12-31 00:00:00',1);
 /*!40000 ALTER TABLE `userQuest` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -251,4 +253,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-07-19 13:15:23
+-- Dump completed on 2020-07-24 12:38:54
