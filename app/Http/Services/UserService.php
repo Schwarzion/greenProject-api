@@ -24,7 +24,7 @@ class UserService extends Service
     {
 
         return [
-            'status' => true,
+            'status' => 200,
             'users' => User::all(),
             'msg ' => 'list of user',
         ];

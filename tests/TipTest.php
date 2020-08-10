@@ -58,7 +58,7 @@ class tipTest extends TestCase
     public function edit()
     {
         $tip = Tip::where('id', '1')->first();
-        $response = $this->call('PUT', '/api/editTip/' . $tip->id, [
+        $response = $this->call('POST', "/api/editTip/{$tip->id}", [
             'name' => 'new name',
             'desc' => 'heyo',
         ]);

@@ -133,8 +133,8 @@ CREATE TABLE `roleUser` (
   PRIMARY KEY (`userId`,`roleId`),
   KEY `fkIdx_userId` (`userId`),
   KEY `fkIdx_role_id` (`roleId`),
-  CONSTRAINT `FK_role_user` FOREIGN KEY (`roleId`) REFERENCES `role` (`id`),
-  CONSTRAINT `FK_user_role` FOREIGN KEY (`userId`) REFERENCES `user` (`id`)
+  CONSTRAINT `FK_role_user` FOREIGN KEY (`roleId`) REFERENCES `role` (`id`)  ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_user_role` FOREIGN KEY (`userId`) REFERENCES `user` (`id`)  ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -161,7 +161,7 @@ CREATE TABLE `tip` (
   `tipStatus` smallint(6) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=114 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -170,7 +170,7 @@ CREATE TABLE `tip` (
 
 LOCK TABLES `tip` WRITE;
 /*!40000 ALTER TABLE `tip` DISABLE KEYS */;
-INSERT INTO `tip` VALUES (1,'dazedez','zefzefzefze',1),(4,'test2','ceci est un test',1),(40,'test4','ceci est un test',1),(42,'bitch pls','test',1),(44,'test22','ceci est un test',1),(45,'test3','ceci est un test',1),(46,'test24','ceci est un test',1),(47,'test27','ceci est un test',1),(48,'test423','ceci est un test',1),(49,'notATest','ceci est un test',1),(50,'42isTheKey','ceci est un test',1),(51,'itBurnsWhenIp','ceci est un test',1);
+INSERT INTO `tip` VALUES (1,'dazedez','dajfajzdadkz',1),(4,'test2','ceci est un testdza',1),(42,'bitch pls','hello',1),(44,'test22','ceci est un test',1),(49,'notATest','ceci est un test',1),(50,'42isTheKey','ceci est un test',1),(51,'itBurnsWhenIp','ceci est un test',1),(83,'testNameaa','testDescsza',1),(93,'testName','testDesc',1);
 /*!40000 ALTER TABLE `tip` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -201,7 +201,7 @@ CREATE TABLE `user` (
   `temparyPasswordValid` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_user` (`email`,`alias`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -210,7 +210,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'Joe','Mama','test@mail.com',1,1,'420 Marble Street','Lille','59000','test@mail.com',1,'0752627592','1995-11-20',0,NULL,'$2y$10$ogL1nHZhVaRXpu1Z.vG3DOyT8iZyvnIN.WmDF9pUYd6xvrfOITowq',NULL),(12,'testName','testLastName','testmail@test.fr',1,1,'42 Rue du Test','testCity','75000','testmail@test.fr',1,'0123456789','2000-01-01',0,NULL,'$2y$10$8K976/XC.tSjmKKOTRD/9e1bgsYf0M/wkwRq0VLgaptNQcSw29fF2',NULL);
+INSERT INTO `user` VALUES (1,'Joe','Mama','test@mail.com',1,1,'420 Marble Street','Lille','59000','test@mail.com',1,'0752627592','1995-11-20',0,NULL,'$2y$10$ogL1nHZhVaRXpu1Z.vG3DOyT8iZyvnIN.WmDF9pUYd6xvrfOITowq',NULL),(12,'testName','testLastName','testmail@test.fr',1,1,'42 Rue du Test','testCity','75000','testmail@test.fr',1,'0123456789','2000-01-01',0,NULL,'$2y$10$8K976/XC.tSjmKKOTRD/9e1bgsYf0M/wkwRq0VLgaptNQcSw29fF2',NULL),(13,'Joe','Mama','testmai2l@test.fr',1,0,'420 Marble Street','Lille','59000','testmai2l@test.fr',1,'0752627592','1995-11-20',0,NULL,'$2y$10$7tAqL3luTFVVdxIpuxE0ru.MN6mo49qsawClI08xSzSZGZNCTwJEW',NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -229,8 +229,8 @@ CREATE TABLE `userQuest` (
   PRIMARY KEY (`questId`,`userId`),
   KEY `fkIdx_questId` (`questId`),
   KEY `fkIdx_userId` (`userId`),
-  CONSTRAINT `FK_quest_user` FOREIGN KEY (`questId`) REFERENCES `quest` (`id`),
-  CONSTRAINT `FK_user_quest` FOREIGN KEY (`userId`) REFERENCES `user` (`id`)
+  CONSTRAINT `FK_quest_user` FOREIGN KEY (`questId`) REFERENCES `quest` (`id`)  ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_user_quest` FOREIGN KEY (`userId`) REFERENCES `user` (`id`)  ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -253,4 +253,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-07-24 12:38:54
+-- Dump completed on 2020-08-10 19:48:44

@@ -27,7 +27,7 @@ class TipController extends Controller
     public function index()
     {
         $res = $this->tipService->getAll();
-        return response()->json($res, $res->status);
+        return response()->json($res, $res['status']);
     }
 
     /**
@@ -40,7 +40,7 @@ class TipController extends Controller
     public function delete($id)
     {
         $res = $this->tipService->delete($id);
-        return response()->json($res, $res->status);
+        return response()->json($res, $res['status']);
     }
 
     /**
