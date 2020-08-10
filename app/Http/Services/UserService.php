@@ -22,7 +22,7 @@ class UserService extends Service
      */
     public function getAll()
     {
- 
+
         return [
             'status' => true,
             'users' => User::all(),
@@ -42,13 +42,12 @@ class UserService extends Service
         $delete = User::whereId($id)->delete($id);
         if ($delete) {
             return [
-                'status' => true,
+                'status' => 200,
                 'msg ' => "user {$id} has been deleted",
             ];
         } else {
             return [
-                'status' => false,
-                'ErrorCode' => 404,
+                'status' => 404,
                 'msg' => "user {$id} cannot be deleted, might not exist",
             ];
         }
@@ -79,8 +78,7 @@ class UserService extends Service
         ]);
         if ($validator->fails()) {
             return [
-                'status' => false,
-                'ErrorCode' => 400,
+                'status' => 400,
                 'msg' => $validator->errors()->messages(),
             ];
         } else {
@@ -126,14 +124,13 @@ class UserService extends Service
         $user = User::find($id);
         if ($user) {
             return [
-                'status' => true,
+                'status' => 200,
                 'user' => $user,
                 'msg' => "user {$id} has been found",
             ];
         }
         return [
-            'status' => false,
-            'ErrorCode' => 404,
+            'status' => 404,
             'msg' => "user {$id} was not found",
         ];
     }
@@ -165,15 +162,14 @@ class UserService extends Service
 
         if ($validator->fails()) {
             return [
-                'status' => false,
-                'ErrorCode' => 400,
+                'status' => 400,
                 'msg' => $validator->errors()->messages(),
             ];
         } else {
             return [
-                'status' => true,
+                'status' => 200,
                 'user' => User::whereId($id)->update($request->input()),
-                'msg' => "user {$id} has been updated"
+                'msg' => "user {$id} has been updated",
             ];
         }
     }

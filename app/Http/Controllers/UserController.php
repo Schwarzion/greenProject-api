@@ -25,7 +25,8 @@ class UserController extends Controller
      */
     public function create(Request $request)
     {
-        return response()->json($this->userService->register($request));
+        $res = $this->userService->register($request);
+        return response()->json($res, $res['status']);
     }
 
     /**
@@ -35,7 +36,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return response()->json($this->userService->getAll());
+        $res = $this->userService->getAll();
+        return response()->json($res, $res['status']);
     }
 
     /**
@@ -47,7 +49,8 @@ class UserController extends Controller
      */
     public function delete($id)
     {
-        return response()->json($this->userService->delete($id));
+        $res = $this->userService->delete($id);
+        return response()->json($res, $res['status']);
     }
 
     /**
@@ -59,7 +62,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return response()->json($this->userService->show($id));
+        $res = $this->userService->show($id);
+        return response()->json($res, $res['status']);
     }
 
     /**
@@ -72,6 +76,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return response()->json($this->userService->update($request, $id));
+        $res = $this->userService->update($request, $id);
+        return response()->json($res, $res['status']);
     }
 }
