@@ -24,7 +24,7 @@ class TipService extends Service
         return [
             'status' => true,
             'tips' => Tip::all(),
-            'msg' => 'list of tips'
+            'msg' => 'list of tips',
         ];
     }
 
@@ -46,8 +46,8 @@ class TipService extends Service
         } else {
             return [
                 'status' => false,
-                'ErrorCode' => 1,
-                'msg' => "user tip {$id} not found",
+                'ErrorCode' => 404,
+                'msg' => "tip {$id} not found",
             ];
         }
     }
@@ -68,7 +68,7 @@ class TipService extends Service
         if ($validator->fails()) {
             return [
                 'status' => false,
-                'ErrorCode' => 1,
+                'ErrorCode' => 400,
                 'msg' => $validator->errors()->messages(),
             ];
         } else {
@@ -99,7 +99,7 @@ class TipService extends Service
         }
         return [
             'status' => false,
-            'ErrorCode' => 1,
+            'ErrorCode' => 404,
             'msg' => "tip {$id} was not found",
         ];
     }
@@ -123,20 +123,21 @@ class TipService extends Service
             if ($validator->fails()) {
                 return [
                     'status' => false,
-                    'ErrorCode' => 1,
+                    'ErrorCode' => 400,
                     'msg' => $validator->errors()->messages(),
                 ];
             } else {
+                $tip = Tip::whereId($id)->update($request->input());
                 return [
                     'status' => true,
-                    'tip' => Tip::whereId($id)->update($request->input()),
+                    'tip' => Tip::find($id),
                     'msg' => "tip {$id} has been updated",
                 ];
             }
         } else {
             return [
                 'status' => false,
-                'ErrorCode' => 1,
+                'ErrorCode' => 404,
                 'msg' => "tip {$id} was not found",
             ];
         }

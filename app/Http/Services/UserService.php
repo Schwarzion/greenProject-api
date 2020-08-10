@@ -48,7 +48,7 @@ class UserService extends Service
         } else {
             return [
                 'status' => false,
-                'ErrorCode' => 1,
+                'ErrorCode' => 404,
                 'msg' => "user {$id} cannot be deleted, might not exist",
             ];
         }
@@ -80,7 +80,7 @@ class UserService extends Service
         if ($validator->fails()) {
             return [
                 'status' => false,
-                'ErrorCode' => 1,
+                'ErrorCode' => 400,
                 'msg' => $validator->errors()->messages(),
             ];
         } else {
@@ -107,7 +107,7 @@ class UserService extends Service
             } else {
                 return [
                     'status' => false,
-                    'ErrorCode' => 1,
+                    'ErrorCode' => 400,
                     'msg' => 'cannot save user',
                 ];
             }
@@ -133,7 +133,7 @@ class UserService extends Service
         }
         return [
             'status' => false,
-            'ErrorCode' => 1,
+            'ErrorCode' => 404,
             'msg' => "user {$id} was not found",
         ];
     }
@@ -166,7 +166,7 @@ class UserService extends Service
         if ($validator->fails()) {
             return [
                 'status' => false,
-                'ErrorCode' => 1,
+                'ErrorCode' => 400,
                 'msg' => $validator->errors()->messages(),
             ];
         } else {
