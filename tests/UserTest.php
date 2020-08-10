@@ -29,7 +29,6 @@ class UserTest extends TestCase
             'sexe' => '1',
             'phone' => '0123456789',
         ]);
-        echo $response;
         $this->assertEquals(200, $response->status());
     }
 

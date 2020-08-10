@@ -87,7 +87,7 @@ class UserService extends Service
                 'password' => Hash::make($request->input('password')),
                 'firstName' => $request->input('firstName'),
                 'lastName' => $request->input('lastName'),
-                'alias' => $request->input('email'),
+                'alias' => $request->input('alias'),
                 'address' => $request->input('address'),
                 'city' => $request->input('city'),
                 'postalCode' => $request->input('postalCode'),
@@ -95,10 +95,10 @@ class UserService extends Service
                 'sexe' => $request->input('sexe'),
                 'phone' => $request->input('phone'),
             ]);
-
+            var_dump($user);
             if ($user->save()) {
                 return [
-                    'status' => true,
+                    'status' => 200,
                     'user' => $user,
                     'msg' => 'user has been successfully created',
                 ];
