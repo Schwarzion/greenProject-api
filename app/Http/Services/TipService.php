@@ -10,7 +10,7 @@ class TipService extends Service
 {
     public function __construct()
     {
-        
+
     }
 
     /**
@@ -45,7 +45,7 @@ class TipService extends Service
             ];
         } else {
             return [
-                'status' => 404,
+                'status' => 400,
                 'msg' => "tip {$id} not found",
             ];
         }
@@ -65,13 +65,11 @@ class TipService extends Service
             'desc' => 'required|max:120',
         ]);
         if ($validator->fails()) {
-            print('FAILED');
             return [
                 'status' => 400,
                 'msg' => $validator->errors()->messages(),
             ];
         } else {
-            print('DID NOT FAILED');
             return [
                 'status' => 200,
                 'tip' => Tip::create($request->input()),
