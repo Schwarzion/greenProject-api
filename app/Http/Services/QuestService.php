@@ -22,7 +22,7 @@ class QuestService extends Service
     public function getAll()
     {
         return [
-            'status' => true,
+            'status' => 200,
             'quests' => Quest::all(),
             'msg' => 'list of quests',
         ];
@@ -40,12 +40,12 @@ class QuestService extends Service
         $delete = Quest::whereId($id)->delete($id);
         if ($delete) {
             return [
-                'status' => true,
+                'status' => 200,
                 'msg' => "quest {$id} has been deleted",
             ];
         } else {
             return [
-                'status' => false,
+                'status' => 400,
                 'ErrorCode' => 1,
                 'msg' => "quest {$id} not found",
             ];
@@ -72,13 +72,13 @@ class QuestService extends Service
 
         if ($validator->fails()) {
             return [
-                'status' => false,
+                'status' => 400,
                 'ErrorCode' => 1,
                 'msg' => $validator->errors()->messages(),
             ];
         } else {
             return [
-                'status' => true,
+                'status' => 200,
                 'quest' => Quest::create($request->input()),
                 'msg' => 'quest has been sucessfully created',
             ];
@@ -97,13 +97,13 @@ class QuestService extends Service
         $quest = Quest::find($id);
         if ($quest) {
             return [
-                'status' => true,
+                'status' => 200,
                 'quest' => $quest,
                 'msg' => "quest {$id} has been found",
             ];
         }
         return [
-            'status' => false,
+            'status' => 400,
             'ErrorCode' => 1,
             'msg' => "quest {$id} was not found",
         ];
@@ -131,20 +131,20 @@ class QuestService extends Service
             ]);
             if ($validator->fails()) {
                 return [
-                    'status' => false,
+                    'status' => 400,
                     'ErrorCode' => 1,
                     'msg' => $validator->errors()->messages(),
                 ];
             } else {
                 return [
-                    'status' => true,
+                    'status' => 200,
                     'quest' => Quest::whereId($id)->update($request->input()),
                     'msg' => "quest {$id} has been updated",
                 ];
             }
         } else {
             return [
-                'status' => false,
+                'status' => 404,
                 'ErrorCode' => 1,
                 'msg' => "quest {$id} was not found",
             ];
