@@ -64,9 +64,9 @@ class QuestService extends Service
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:45',
             'desc' => 'required|max:120',
-            'expAmount' => 'required|max:11|integer',
-            'minLevel' => 'required|max:11|integer',
-            'timeForQuest' => '',
+            'expAmount' => 'required|max:1000|integer',
+            'minLevel' => 'required|max:50|integer',
+            'timeForQuest' => 'required|integer',
             'endDate' => 'required|date'
         ]);
 
