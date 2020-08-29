@@ -95,7 +95,6 @@ class UserService extends Service
                 'sexe' => $request->input('sexe'),
                 'phone' => $request->input('phone'),
             ]);
-            var_dump($user);
             if ($user->save()) {
                 return [
                     'status' => 200,
