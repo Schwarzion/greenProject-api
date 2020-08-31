@@ -22,9 +22,9 @@ class UserService extends Service
      */
     public function getAll()
     {
- 
+
         return [
-            'status' => true,
+            'status' => 200,
             'users' => User::all(),
             'msg ' => 'list of user',
         ];
@@ -42,13 +42,12 @@ class UserService extends Service
         $delete = User::whereId($id)->delete($id);
         if ($delete) {
             return [
-                'status' => true,
+                'status' => 200,
                 'msg ' => "user {$id} has been deleted",
             ];
         } else {
             return [
-                'status' => false,
-                'ErrorCode' => 1,
+                'status' => 404,
                 'msg' => "user {$id} cannot be deleted, might not exist",
             ];
         }
@@ -79,8 +78,7 @@ class UserService extends Service
         ]);
         if ($validator->fails()) {
             return [
-                'status' => false,
-                'ErrorCode' => 1,
+                'status' => 400,
                 'msg' => $validator->errors()->messages(),
             ];
         } else {
@@ -89,7 +87,7 @@ class UserService extends Service
                 'password' => Hash::make($request->input('password')),
                 'firstName' => $request->input('firstName'),
                 'lastName' => $request->input('lastName'),
-                'alias' => $request->input('email'),
+                'alias' => $request->input('alias'),
                 'address' => $request->input('address'),
                 'city' => $request->input('city'),
                 'postalCode' => $request->input('postalCode'),
@@ -97,17 +95,17 @@ class UserService extends Service
                 'sexe' => $request->input('sexe'),
                 'phone' => $request->input('phone'),
             ]);
-
+            var_dump($user);
             if ($user->save()) {
                 return [
-                    'status' => true,
+                    'status' => 200,
                     'user' => $user,
                     'msg' => 'user has been successfully created',
                 ];
             } else {
                 return [
                     'status' => false,
-                    'ErrorCode' => 1,
+                    'ErrorCode' => 400,
                     'msg' => 'cannot save user',
                 ];
             }
@@ -126,14 +124,13 @@ class UserService extends Service
         $user = User::find($id);
         if ($user) {
             return [
-                'status' => true,
+                'status' => 200,
                 'user' => $user,
                 'msg' => "user {$id} has been found",
             ];
         }
         return [
-            'status' => false,
-            'ErrorCode' => 1,
+            'status' => 404,
             'msg' => "user {$id} was not found",
         ];
     }
@@ -165,15 +162,14 @@ class UserService extends Service
 
         if ($validator->fails()) {
             return [
-                'status' => false,
-                'ErrorCode' => 1,
+                'status' => 400,
                 'msg' => $validator->errors()->messages(),
             ];
         } else {
             return [
-                'status' => true,
+                'status' => 200,
                 'user' => User::whereId($id)->update($request->input()),
-                'msg' => "user {$id} has been updated"
+                'msg' => "user {$id} has been updated",
             ];
         }
     }

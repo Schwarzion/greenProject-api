@@ -1,7 +1,8 @@
 <?php
+use App\models\User;
 use Laravel\Lumen\Testing\DatabaseTransactions;
 use Laravel\Lumen\Testing\WithoutMiddleware;
-use App\models\User;
+
 class UserTest extends TestCase
 {
     use WithoutMiddleware; //Doesn't need specific middleware (auth / role)
@@ -18,7 +19,7 @@ class UserTest extends TestCase
             'firstName' => 'testName',
             'lastName' => 'testLastName',
             'alias' => 'testAlias',
-            'email' => 'testmail@test.fr',
+            'email' => 'phpunitmailtest@test.fr',
             'password' => 'testPassword',
             'confirmPassword' => 'testPassword',
             'address' => '42 Rue du Test',
@@ -66,7 +67,7 @@ class UserTest extends TestCase
     public function edit()
     {
         $user = User::where('email', 'testmail@test.fr')->first();
-        $response = $this->call('PUT', '/api/editUser/' . $user->id, [
+        $response = $this->call('POST', '/api/editUser/' . $user->id, [
             'email' => 'testmail2@test.fr',
         ]);
         $this->assertEquals(200, $response->status());

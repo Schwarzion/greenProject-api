@@ -22,7 +22,7 @@ class TipService extends Service
     public function getAll()
     {
         return [
-            'status' => true,
+            'status' => 200,
             'tips' => Tip::all(),
             'msg' => 'list of tips',
         ];
@@ -40,14 +40,13 @@ class TipService extends Service
         $delete = Tip::whereId($id)->delete($id);
         if ($delete) {
             return [
-                'status' => true,
+                'status' => 200,
                 'msg' => "tip {$id} has been deleted",
             ];
         } else {
             return [
-                'status' => false,
-                'ErrorCode' => 1,
-                'msg' => "user tip {$id} not found",
+                'status' => 400,
+                'msg' => "tip {$id} not found",
             ];
         }
     }
@@ -62,18 +61,17 @@ class TipService extends Service
     public function newTip(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:45',
+            'name' => 'required|max:45|unique:tip,name',
             'desc' => 'required|max:120',
         ]);
         if ($validator->fails()) {
             return [
-                'status' => false,
-                'ErrorCode' => 1,
+                'status' => 400,
                 'msg' => $validator->errors()->messages(),
             ];
         } else {
             return [
-                'status' => true,
+                'status' => 200,
                 'tip' => Tip::create($request->input()),
                 'msg' => 'tip has been sucessfully created',
             ];
@@ -92,14 +90,13 @@ class TipService extends Service
         $tip = Tip::find($id);
         if ($tip) {
             return [
-                'status' => true,
+                'status' => 200,
                 'tip' => $tip,
                 'msg' => "tip {$id} has been found",
             ];
         }
         return [
-            'status' => false,
-            'ErrorCode' => 1,
+            'status' => 404,
             'msg' => "tip {$id} was not found",
         ];
     }
@@ -122,21 +119,20 @@ class TipService extends Service
             ]);
             if ($validator->fails()) {
                 return [
-                    'status' => false,
-                    'ErrorCode' => 1,
+                    'status' => 400,
                     'msg' => $validator->errors()->messages(),
                 ];
             } else {
+                $tip = Tip::whereId($id)->update($request->input());
                 return [
-                    'status' => true,
-                    'tip' => Tip::whereId($id)->update($request->input()),
+                    'status' => 200,
+                    'tip' => Tip::find($id),
                     'msg' => "tip {$id} has been updated",
                 ];
             }
         } else {
             return [
-                'status' => false,
-                'ErrorCode' => 1,
+                'status' => 404,
                 'msg' => "tip {$id} was not found",
             ];
         }
