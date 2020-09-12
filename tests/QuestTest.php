@@ -24,7 +24,7 @@ class questTest extends TestCase
             'endDate' => ''
         ]);
 
-        $this->assertEquals('PhpUnit Testing Quest', $response->getData()->tip->name);
+        $this->assertEquals('PhpUnit Testing Quest', $response->getData()->quest->name);
         $this->assertEquals(200, $response->status());
     }
 
@@ -38,7 +38,7 @@ class questTest extends TestCase
         $response = $this->call('get', '/api/allQuests');
         $this->assertEquals(200, $response->status());
         $this->questId = $response->getData()->quests[0]->id;
-        $this->assertEquals('dazedez', $response->getData()->quests[0]->name);
+        $this->assertEquals('testQuest', $response->getData()->quests[0]->name);
     }
 
     /**
@@ -51,7 +51,7 @@ class questTest extends TestCase
         $quest = Quest::where('id', '1')->first();
         $response = $this->call('GET', '/api/quest/' . $quest->id);
         $this->assertEquals(200, $response->status());
-        $this->assertEquals('dazedez', $response->getData()->quest->name);
+        $this->assertEquals('testQuest', $response->getData()->quest->name);
     }
 
     /**
