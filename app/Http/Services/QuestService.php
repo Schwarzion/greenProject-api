@@ -80,7 +80,7 @@ class QuestService extends Service
             return [
                 'status' => 200,
                 'quest' => Quest::create($request->input()),
-                'msg' => 'quest has been sucessfully created',
+                'msg' => 'Quest has been sucessfully created',
             ];
         }
     }

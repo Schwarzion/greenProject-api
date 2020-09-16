@@ -20,12 +20,13 @@ class questTest extends TestCase
             'desc' => 'test description',
             'expAmount' => 5,
             'minLevel' => 2, 
-            'timeForQuest' => '',
-            'endDate' => ''
+            'timeForQuest' => '100000',
+            'endDate' => '2030-06-17'
         ]);
 
-        $this->assertEquals('PhpUnit Testing Quest', $response->getData()->quest->name);
         $this->assertEquals(200, $response->status());
+        $this->assertEquals('PhpUnit Testing Quest', $response->getData()->quest->name);
+        $this->assertEquals('test description', $response->getData()->quest->desc);
     }
 
     /**
@@ -67,8 +68,8 @@ class questTest extends TestCase
           'desc' => 'test description EDITED',
           'expAmount' => 2,
           'minLevel' => 1, 
-          'timeForQuest' => '',
-          'endDate' => ''
+          'timeForQuest' => '12360',
+          'endDate' => '2035-01-01'
         ]);
         $this->assertEquals(200, $response->status());
         $this->assertEquals('quest 1 has been updated', $response->getData()->msg);

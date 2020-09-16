@@ -18,6 +18,9 @@
 --
 -- Table structure for table `level`
 --
+DROP DATABASE IF EXISTS greendb;
+CREATE DATABASE greendb;
+
 USE greendb;
 
 DROP TABLE IF EXISTS `level`;
