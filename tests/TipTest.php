@@ -34,7 +34,7 @@ class tipTest extends TestCase
         $response = $this->call('get', '/api/allTips');
         $this->assertEquals(200, $response->status());
         $this->tipId = $response->getData()->tips[0]->id;
-        $this->assertEquals('dazedez', $response->getData()->tips[0]->name);
+        $this->assertEquals('testTip', $response->getData()->tips[0]->name);
     }
 
     /**
@@ -47,7 +47,7 @@ class tipTest extends TestCase
         $tip = Tip::where('id', '1')->first();
         $response = $this->call('GET', '/api/tip/' . $tip->id);
         $this->assertEquals(200, $response->status());
-        $this->assertEquals('dazedez', $response->getData()->tip->name);
+        $this->assertEquals('testTip', $response->getData()->tip->name);
     }
 
     /**
@@ -60,7 +60,7 @@ class tipTest extends TestCase
         $tip = Tip::where('id', '1')->first();
         $response = $this->call('POST', "/api/editTip/{$tip->id}", [
             'name' => 'new name',
-            'desc' => 'heyo',
+            'desc' => 'testDesc',
         ]);
         $this->assertEquals(200, $response->status());
         $this->assertEquals('tip 1 has been updated', $response->getData()->msg);

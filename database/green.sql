@@ -18,10 +18,10 @@
 --
 -- Table structure for table `level`
 --
-DROP DATABASE IF EXISTS greendb;
-CREATE DATABASE greendb;
+DROP DATABASE IF EXISTS greenDB;
+CREATE DATABASE greenDB;
 
-USE greendb;
+USE greenDB;
 
 DROP TABLE IF EXISTS `level`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -174,7 +174,7 @@ CREATE TABLE `tip` (
 
 LOCK TABLES `tip` WRITE;
 /*!40000 ALTER TABLE `tip` DISABLE KEYS */;
-INSERT INTO `tip` VALUES (1,'dazedez','dajfajzdadkz',1),(4,'test2','ceci est un testdza',1),(42,'bitch pls','hello',1),(44,'test22','ceci est un test',1),(49,'notATest','ceci est un test',1),(50,'42isTheKey','ceci est un test',1),(51,'itBurnsWhenIp','ceci est un test',1),(83,'testNameaa','testDescsza',1),(93,'testName','testDesc',1);
+INSERT INTO `tip` VALUES (1,'testTip','Adieu les bouteilles d''eau, le charbon actif permet d''assainir l''eau du robinet!',1),(2,'coffeeMaker','Si tu souhaites boire ton café sans déchet, rien de mieux qu''une cafetière italienne, à piston ou un filtre lavable!',1),(3,'shower','Remplace ton shampoing et ton gel douche par des solutions solides afin d''éviter les emballages!',1),(4,'stopPub','N''hésites pas à mettre un autocollant "Stop Pub" sur ta boite aux lettres si tu es contre la production intensive de papier et sauve des forêts!',1),(5,'fruitsMûrs','Si tu as des fruits trop mûrs, fait des compotes ou des confitures!',1);
 /*!40000 ALTER TABLE `tip` ENABLE KEYS */;
 UNLOCK TABLES;
 
