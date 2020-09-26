@@ -73,7 +73,7 @@ class UserService extends Service
             'city' => 'required|max:30|alpha_dash',
             'postalCode' => 'required|max:5|alpha_num',
             'birthday' => 'required|date|before:today',
-            'sexe' => 'required|boolean',
+            'sexe' => 'required|alpha_num',
             'phone' => 'required|max:10|alpha_num',
         ]);
         if ($validator->fails()) {
@@ -155,7 +155,7 @@ class UserService extends Service
             'city' => 'min:3|max:30|alpha_dash',
             'postalCode' => 'min:5|max:5|alpha_num',
             'birthday' => 'date|before:today',
-            'sexe' => 'min:1|boolean',
+            'sexe' => 'min:1|alpha_num',
             'phone' => 'min:10|max:10|alpha_num',
         ]);
 
