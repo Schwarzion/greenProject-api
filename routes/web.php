@@ -32,6 +32,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('user/{id}', ['as' => 'user', 'uses' => 'UserController@show']);
     $router->get('deleteUser/{id}', ['as' => 'deleteUser', 'uses' => 'UserController@delete']);
     $router->post('editUser/{id}', ['as' => 'editUser', 'uses' => 'UserController@update']);
+    $router->get('updateUserLevel/', ['as' => 'updateUserLevel', 'uses' => 'UserController@updateUserLevel']);
     //Tips
     $router->get('allTips', ['as' => 'allTips', 'uses' => 'TipController@index']);
     $router->get('tip/{id}', ['as' => 'tip', 'uses' => 'TipController@show']);
@@ -44,6 +45,11 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('addQuest', ['as' => 'addQuest', 'uses' => 'QuestController@create']);
     $router->get('deleteQuest/{id}', ['as' => 'deleteQuest', 'uses' => 'QuestController@delete']);
     $router->post('editQuest/{id}', ['as' => 'editQuest', 'uses' => 'QuestController@update']);
+    $router->get('validateQuest/{id}', ['as' => 'validateQuest', 'uses' => 'QuestController@validateQuest']);
     //Roles
     $router->get('checkRole/{roleId}', ['as' => 'checkRole', 'uses' => 'RoleController@checkRole']);
+
+    //Levels
+    $router->get('allLevels', ['as' => 'allLevels', 'uses' => 'LevelController@index']);
+    
 });

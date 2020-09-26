@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Http\Services\UserService;
@@ -77,6 +78,20 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $res = $this->userService->update($request, $id);
+        return response()->json($res, $res['status']);
+    }
+
+    /**
+     * Update User level
+     *
+     * @param Illuminate\Http\Request
+     *        $id (int)
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function updateUserLevel()
+    {
+        $res = $this->userService->updateUserLevel();
         return response()->json($res, $res['status']);
     }
 }

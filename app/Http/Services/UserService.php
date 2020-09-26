@@ -3,9 +3,11 @@
 namespace App\Http\Services;
 
 use App\models\User;
+use App\models\Level;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class UserService extends Service
 {
@@ -183,6 +185,40 @@ class UserService extends Service
                 'status' => 200,
                 'user' => User::whereId($id)->update($request->input()),
                 'msg' => "user {$id} has been updated",
+            ];
+        }
+    }
+
+    /**
+     * Get current user
+     * 
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public static function updateUserLevel()
+    {
+        $getCurrentUser = Auth::user();
+        $currentUserExp = $getCurrentUser['exp'];
+        $userLevel = Level::where('levelExpAmount', '<=', $currentUserExp)->get()->last();
+        $newUserLevel = [
+            'level' => $userLevel['id'],
+        ];
+        if ($getCurrentUser['level'] == $userLevel['id']) {
+            $result = false;
+        }else{
+            $result = $getCurrentUser->update($newUserLevel);
+        }
+
+        if ($result == true) {
+            return [
+                'status' => 200,
+                'user' => $getCurrentUser['id'],
+                'New level' => $userLevel,
+            ];
+        } else {
+            return [
+                'status' => 400,
+                'msg' => 'Can\'t update the current user with the id ' . $getCurrentUser['id'],
             ];
         }
     }
