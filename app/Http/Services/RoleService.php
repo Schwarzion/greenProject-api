@@ -138,7 +138,7 @@ class RoleService extends Service
             $response = [
                 'status' => 200,
                 'user' => Role::whereId($id)->update($request->input()),
-                'msg' => "Role {$id} has been updated",
+                'msg' => 'Role {$id} has been updated',
             ];
         }
         return $response;
@@ -153,19 +153,44 @@ class RoleService extends Service
      */
     public function give($request, $id, $roleId)
     {
-        $user = User::select('id')->where('id', $id)->first();
-        $role = Role::select('id')->where('id', $roleId)->first();
-        $result = $user->hasRole()->attach($role);
-        if($result){
+        $user = User::find($id);
+        if($user){
+            $user = $user->first();
+            $hasRole = $user->hasRole($roleId);
+
+            $roleName =  Role::find($roleId);
+            if($roleName){
+                $roleName = $roleName->name;
+                if(!$hasRole) {
+                    $result = $user->role()->attach($roleId);
+                    if ($result) {
+                        $response = [
+                            'status' => 200,
+                            'msg' => "Role {$roleName} has been awarded"
+                        ];
+                    } else {
+                        $response = [
+                            'status' => 400,
+                            'msg' => "The role {$roleName} can not be awarded"
+                        ];
+                    }
+                }
+                else {
+                    $response = [
+                        'status' => 400,
+                        'msg' => "The role {$roleName} is already awarded"
+                    ];
+                }
+            }else{
+                $response = [
+                    'status' => 400,
+                    'msg' => "This role does not exist"
+                ];
+            }
+        }else{
             $response = [
                 'status' => 400,
-                'msg' => $user->errors()->messages(),
-            ];
-        }else {
-            $response = [
-                'status' => 200,
-                'user' => $result,
-                'msg' => "Role {$id} has been awarded",
+                'msg' => "This user does not exist"
             ];
         }
         return $response;
@@ -180,26 +205,43 @@ class RoleService extends Service
      */
     public function remove($request, $id, $roleId)
     {
-        if($roleId != 1) {
-            $user = User::select('id')->where('id', $id)->first();
-            $role = Role::select('id')->where('id', $roleId)->first();
-            $result = $user->hasRole()->detach($role);
-            if ($result) {
+        $user = User::find($id);
+        if($user){
+            $user = $user->first();
+            $hasRole = $user->hasRole($roleId);
+            $roleName =  Role::find($roleId);
+            if($roleName){
+                $roleName = $roleName->name;
+                if($hasRole) {
+                    $result = $user->role()->detach($roleId);
+                    if ($result) {
+                        $response = [
+                            'status' => 200,
+                            'msg' => "Role {$roleName} has been removed"
+                        ];
+                    } else {
+                        $response = [
+                            'status' => 400,
+                            'msg' => "The role {$roleName} can not be removed"
+                        ];
+                    }
+                }
+                else {
+                    $response = [
+                        'status' => 400,
+                        'msg' => "User does not have {$roleName} role"
+                    ];
+                }
+            }else{
                 $response = [
                     'status' => 400,
-                    'msg' => $user->errors()->messages()
-                ];
-            } else {
-                $response = [
-                    'status' => 200,
-                    'user' => $result,
-                    'msg' => "Role {$id} has been removed",
+                    'msg' => "This role does not exist"
                 ];
             }
         }else{
             $response = [
-                'status' => 200,
-                'msg' => "This role is untouchable",
+                'status' => 400,
+                'msg' => "This user does not exist"
             ];
         }
         return $response;

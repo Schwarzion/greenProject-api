@@ -37,13 +37,13 @@ class Authorization
             $roles = [];
             $role = explode(' ', (string)$role);
             foreach($role as $value){
-                $result = $request->user()->hasRole()->where('role.name', $value)->get()->all();
+                $result = $request->user()->role()->where('role.name', $value)->get()->all();
                 if($result){
                     $roles[] = $result;
                 }
             }
             if (!$roles) {
-                return response()->json(['Message' => 'Unauthorized : You don\'t have the authorizations.'], 401);
+                return response()->json(['Message' => 'Unauthorized : You don\'t have the authorizations.'], 403);
             }
         }
         return $next($request);

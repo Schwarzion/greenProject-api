@@ -100,8 +100,26 @@ class RoleController extends Controller
         return response()->json($this->roleService->remove($request, $id, $roleId));
     }
 
-    public function checkRole()
+    /**
+     * @return JsonResponse
+     */
+    public function checkRole(Request $request, $roleId)
     {
-        return response()->json(['role' => Auth::user()->hasRole()->where('name', 'ADMIN')->first() != null]);
+        $user = Auth::user();
+        $role = $user->hasRole($roleId);
+        if($role){
+            $response = response()->json([
+                'status' => 200,
+                'role' => true,
+                'msg' => "User {$user->firstName} {$user->lastName} has role {$role->name}."
+            ]);
+        }else{
+            $response = response()->json([
+                'status' => 400,
+                'role' => false,
+                'msg' => "This role does not exist."
+            ]);
+        }
+        return $response;
     }
 }

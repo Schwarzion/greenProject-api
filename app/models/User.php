@@ -64,9 +64,17 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     /**
      * @return BelongsToMany
      */
-    public function hasRole()
+    public function role()
     {
         return $this->belongsToMany('App\models\Role', 'roleUser', 'userId', 'roleId');
+    }
 
+    /**
+     * @param $requestedRole
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function hasRole($requestedRole)
+    {
+        return $this->role()->find($requestedRole);
     }
 }

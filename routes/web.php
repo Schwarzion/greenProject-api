@@ -45,12 +45,5 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('deleteQuest/{id}', ['as' => 'deleteQuest', 'uses' => 'QuestController@delete']);
     $router->post('editQuest/{id}', ['as' => 'editQuest', 'uses' => 'QuestController@update']);
     //Roles
-//    $router->get('allRoles', ['as' => 'allRoles', 'uses' => 'RoleController@index']);
-//    $router->post('addRole', ['as' => 'addRole', 'uses' => 'RoleController@create']);
-//    $router->post('editRole/{id}', ['as' => 'editRole', 'uses' => 'RoleController@update']);
-//    $router->get('role/{id}', ['as' => 'role', 'uses' => 'RoleController@show']);
-//    $router->post('deleteRole/{id}', ['as' => 'deleteRole', 'uses' => 'RoleController@delete']);
-//    $router->post('giveRole/{id}/{roleId}', ['as' => 'giveRole', 'uses' => 'RoleController@giveRole']);
-//    $router->post('removeRole/{id}/{roleId}', ['as' => 'removeRole', 'uses' => 'RoleController@removeRole']);
-    $router->get('checkRole', ['as' => 'checkRole', 'uses' => 'RoleController@checkRole']);
+    $router->get('checkRole/{roleId}', ['as' => 'checkRole', 'uses' => 'RoleController@checkRole']);
 });
