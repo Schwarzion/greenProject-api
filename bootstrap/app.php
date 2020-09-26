@@ -26,7 +26,6 @@ $app->withFacades();
 
 $app->withEloquent();
 
-
 /*
 |--------------------------------------------------------------------------
 | Register Container Bindings
@@ -107,5 +106,7 @@ $app->router->group([
 ], function ($router) {
     require __DIR__.'/../routes/web.php';
 });
+
+app('translator')->setLocale('fr');
 
 return $app;

@@ -11,7 +11,6 @@ class UserService extends Service
 {
     public function __construct()
     {
-
     }
 
     /**
@@ -62,6 +61,22 @@ class UserService extends Service
      */
     public function register(Request $request)
     {
+        $checkAlias = User::where('alias', $request->input('alias'))->get();
+        if ($checkAlias->first()) {
+            return [
+                'status' => 409,
+                'msg' => ['alias' => ["Cet alias est déjà pris"]]
+            ];
+        }
+
+        $checkEmail = User::Where('email', $request->input('email'))->get();
+        if ($checkEmail->first()) {
+            return [
+                'status' => 409,
+                'msg' => ['email' => ["Cet email est déjà pris"]]
+            ];
+        }
+
         $validator = Validator::make($request->all(), [
             'firstName' => 'required|max:30|alpha_dash',
             'lastName' => 'required|max:30|alpha_dash',
@@ -103,8 +118,7 @@ class UserService extends Service
                 ];
             } else {
                 return [
-                    'status' => false,
-                    'ErrorCode' => 400,
+                    'status' => 400,
                     'msg' => 'cannot save user',
                 ];
             }
