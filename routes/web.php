@@ -44,4 +44,6 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('addQuest', ['as' => 'addQuest', 'uses' => 'QuestController@create']);
     $router->get('deleteQuest/{id}', ['as' => 'deleteQuest', 'uses' => 'QuestController@delete']);
     $router->post('editQuest/{id}', ['as' => 'editQuest', 'uses' => 'QuestController@update']);
+    //Roles
+    $router->get('checkRole/{roleId}', ['as' => 'checkRole', 'uses' => 'RoleController@checkRole']);
 });

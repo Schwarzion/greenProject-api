@@ -6,6 +6,7 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Laravel\Lumen\Auth\Authorizable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
@@ -55,8 +56,25 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return [];
     }
 
-    public function hasQuests() 
+    public function hasQuests()
     {
         return $this->belongsToMany('App\models\Quest', 'userQuest', 'userId', 'questId');
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function role()
+    {
+        return $this->belongsToMany('App\models\Role', 'roleUser', 'userId', 'roleId');
+    }
+
+    /**
+     * @param $requestedRole
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function hasRole($requestedRole)
+    {
+        return $this->role()->find($requestedRole);
     }
 }
