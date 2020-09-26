@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Http\Services\UserService;
@@ -80,21 +81,56 @@ class UserController extends Controller
         return response()->json($res, $res['status']);
     }
 
+    /**
+     * Retrieve all user quest
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getUserQuests(Request $request)
     {
         $res = $this->userService->getUserQuests($request);
         return response()->json($res, $res['status']);
     }
 
+    /**
+     * Add a quest to user
+     *
+     * @param Request $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function addQuest(Request $request, $id)
     {
         $res = $this->userService->addQuest($request, $id);
         return response()->json($res, $res['status']);
     }
 
+    /**
+     * Remove a quest form user
+     *
+     * @param Request $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function removeQuest(Request $request, $id)
     {
         $res = $this->userService->removeQuest($request, $id);
+        return response()->json($res, $res['status']);
+
+    }
+
+    /**
+     * Update User level
+     *
+     * @param Illuminate\Http\Request
+     *        $id (int)
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function updateUserLevel()
+    {
+        $res = $this->userService->updateUserLevel();
         return response()->json($res, $res['status']);
     }
 }

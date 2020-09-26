@@ -96,4 +96,8 @@ class QuestController extends Controller
     {
 
     }
+
+    public function validateQuest($questId){
+        return response()->json($this->questService->validateQuest($questId));
+    }
 }
