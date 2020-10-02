@@ -65,7 +65,7 @@ class UserService extends Service
         if ($checkAlias->first()) {
             return [
                 'status' => 409,
-                'msg' => ['alias' => ["Cet alias est déjà pris"]]
+                'msg' => ['alias' => ["Cet alias est déjà pris"]],
             ];
         }
 
@@ -73,7 +73,7 @@ class UserService extends Service
         if ($checkEmail->first()) {
             return [
                 'status' => 409,
-                'msg' => ['email' => ["Cet email est déjà pris"]]
+                'msg' => ['email' => ["Cet email est déjà pris"]],
             ];
         }
 
@@ -179,11 +179,14 @@ class UserService extends Service
                 'msg' => $validator->errors()->messages(),
             ];
         } else {
-            return [
-                'status' => 200,
-                'user' => User::whereId($id)->update($request->input()),
-                'msg' => "user {$id} has been updated",
-            ];
+            $user = User::whereId($id)->update($request->input());
+            if ($user) {
+                return [
+                    'status' => 200,
+                    'user' => User::find($id),
+                    'msg' => "user {$id} has been updated",
+                ];
+            }
         }
     }
 }
