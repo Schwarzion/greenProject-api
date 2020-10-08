@@ -7,7 +7,6 @@ namespace App\Http\Services;
 use App\models\Role;
 use App\models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class RoleService extends Service
@@ -29,7 +28,7 @@ class RoleService extends Service
         return [
             'status' => 200,
             'quests' => Role::all(),
-            'msg' => 'list of roles',
+            'msg' => 'Liste des rôles',
         ];
     }
 
@@ -46,13 +45,13 @@ class RoleService extends Service
         if ($delete) {
             $response = [
                 'status' => 200,
-                'msg' => "Role {$id} has been deleted",
+                'msg' => "Le rôle {$id} a été supprimé",
             ];
         } else {
             $response = [
                 'status' => 400,
                 'ErrorCode' => 1,
-                'msg' => "Role {$id} not found",
+                'msg' => "Le rôle {$id} n'a pas été trouvé",
             ];
         }
         return $response;
@@ -72,13 +71,13 @@ class RoleService extends Service
             $response = [
                 'status' => 200,
                 'quest' => $quest,
-                'msg' => "Role {$id} has been found",
+                'msg' => "Le rôle {$id} a été trouvé",
             ];
         }else{
             $response = [
                 'status' => 400,
                 'ErrorCode' => 1,
-                'msg' => "Role {$id} was not found",
+                'msg' => "Le rôle {$id} n'a pas été trouvé",
             ];
         }
         return $response;
@@ -108,7 +107,7 @@ class RoleService extends Service
             $response = [
                 'status' => 200,
                 'quest' => Role::create($request->input()),
-                'msg' => 'Role has been sucessfully created',
+                'msg' => 'Le rôle a bien été créé',
             ];
         }
         return $response;
@@ -125,8 +124,8 @@ class RoleService extends Service
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:45',
-            'desc' => 'required|max:120'
+            'name' => 'max:45',
+            'desc' => 'max:120'
         ]);
 
         if ($validator->fails()) {
@@ -138,7 +137,7 @@ class RoleService extends Service
             $response = [
                 'status' => 200,
                 'user' => Role::whereId($id)->update($request->input()),
-                'msg' => 'Role {$id} has been updated',
+                'msg' => "Le rôle {$id} a été modifié",
             ];
         }
         return $response;
@@ -157,7 +156,6 @@ class RoleService extends Service
         if($user){
             $user = $user->first();
             $hasRole = $user->hasRole($roleId);
-
             $roleName =  Role::find($roleId);
             if($roleName){
                 $roleName = $roleName->name;
@@ -166,31 +164,31 @@ class RoleService extends Service
                     if ($result) {
                         $response = [
                             'status' => 200,
-                            'msg' => "Role {$roleName} has been awarded"
+                            'msg' => "Le rôle {$roleName} a été attaché"
                         ];
                     } else {
                         $response = [
                             'status' => 400,
-                            'msg' => "The role {$roleName} can not be awarded"
+                            'msg' => "Le rôle  {$roleName} ne peux pas être attaché"
                         ];
                     }
                 }
                 else {
                     $response = [
                         'status' => 400,
-                        'msg' => "The role {$roleName} is already awarded"
+                        'msg' => "Le rôle  {$roleName} est déjà attaché"
                     ];
                 }
             }else{
                 $response = [
-                    'status' => 400,
-                    'msg' => "This role does not exist"
+                    'status' => 404,
+                    'msg' => "Le rôle n'existe pas"
                 ];
             }
         }else{
             $response = [
-                'status' => 400,
-                'msg' => "This user does not exist"
+                'status' => 404,
+                'msg' => "L'utilisateur n'existe pas"
             ];
         }
         return $response;
@@ -217,31 +215,31 @@ class RoleService extends Service
                     if ($result) {
                         $response = [
                             'status' => 200,
-                            'msg' => "Role {$roleName} has been removed"
+                            'msg' => "Le rôle {$roleName} a été enlevé"
                         ];
                     } else {
                         $response = [
                             'status' => 400,
-                            'msg' => "The role {$roleName} can not be removed"
+                            'msg' => "Le rôle {$roleName} ne peux pas être supprimé"
                         ];
                     }
                 }
                 else {
                     $response = [
                         'status' => 400,
-                        'msg' => "User does not have {$roleName} role"
+                        'msg' => "L'utilisateur n'a pas le rôle {$roleName}"
                     ];
                 }
             }else{
                 $response = [
                     'status' => 400,
-                    'msg' => "This role does not exist"
+                    'msg' => "Le rôle n'existe pas"
                 ];
             }
         }else{
             $response = [
                 'status' => 400,
-                'msg' => "This user does not exist"
+                'msg' => "L'utilisateur n'existe pas"
             ];
         }
         return $response;

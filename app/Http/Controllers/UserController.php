@@ -79,4 +79,22 @@ class UserController extends Controller
         $res = $this->userService->update($request, $id);
         return response()->json($res, $res['status']);
     }
+
+    public function getUserQuests(Request $request)
+    {
+        $res = $this->userService->getUserQuests($request);
+        return response()->json($res, $res['status']);
+    }
+
+    public function addQuest(Request $request, $id)
+    {
+        $res = $this->userService->addQuest($request, $id);
+        return response()->json($res, $res['status']);
+    }
+
+    public function removeQuest(Request $request, $id)
+    {
+        $res = $this->userService->removeQuest($request, $id);
+        return response()->json($res, $res['status']);
+    }
 }

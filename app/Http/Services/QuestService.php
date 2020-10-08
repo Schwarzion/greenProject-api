@@ -24,7 +24,7 @@ class QuestService extends Service
         return [
             'status' => 200,
             'quests' => Quest::all(),
-            'msg' => 'list of quests',
+            'msg' => 'Liste des quêtes',
         ];
     }
 
@@ -41,13 +41,13 @@ class QuestService extends Service
         if ($delete) {
             return [
                 'status' => 200,
-                'msg' => "quest {$id} has been deleted",
+                'msg' => "La quête {$id} a bien été supprimé",
             ];
         } else {
             return [
                 'status' => 400,
                 'ErrorCode' => 1,
-                'msg' => "quest {$id} not found",
+                'msg' => "La quête {$id} ne peux pas être supprimer, il n'existe peut-être pas",
             ];
         }
     }
@@ -80,7 +80,7 @@ class QuestService extends Service
             return [
                 'status' => 200,
                 'quest' => Quest::create($request->input()),
-                'msg' => 'Quest has been sucessfully created',
+                'msg' => 'La quête a bien été créée',
             ];
         }
     }
@@ -99,13 +99,13 @@ class QuestService extends Service
             return [
                 'status' => 200,
                 'quest' => $quest,
-                'msg' => "quest {$id} has been found",
+                'msg' => "La quête {$id} a été trouvée",
             ];
         }
         return [
             'status' => 400,
             'ErrorCode' => 1,
-            'msg' => "quest {$id} was not found",
+            'msg' => "La quête {$id} n'a pas été trouvée",
         ];
     }
 
@@ -139,25 +139,15 @@ class QuestService extends Service
                 return [
                     'status' => 200,
                     'quest' => Quest::whereId($id)->update($request->input()),
-                    'msg' => "quest {$id} has been updated",
+                    'msg' => "La quête {$id} a été modifiée",
                 ];
             }
         } else {
             return [
                 'status' => 404,
                 'ErrorCode' => 1,
-                'msg' => "quest {$id} was not found",
+                'msg' => "La quête {$id} n'a pas été trouvée",
             ];
         }
-    }
-
-    public function assignQuestToUser() 
-    {
-
-    }
-
-    public function getDeadline()
-    {
-        
     }
 }

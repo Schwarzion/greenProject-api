@@ -24,7 +24,7 @@ class TipService extends Service
         return [
             'status' => 200,
             'tips' => Tip::all(),
-            'msg' => 'list of tips',
+            'msg' => 'Liste des astuces',
         ];
     }
 
@@ -41,12 +41,12 @@ class TipService extends Service
         if ($delete) {
             return [
                 'status' => 200,
-                'msg' => "tip {$id} has been deleted",
+                'msg' => "L'astuce {$id} a été suprimée",
             ];
         } else {
             return [
                 'status' => 400,
-                'msg' => "tip {$id} not found",
+                'msg' => "L'astuce {$id} n'existe pas",
             ];
         }
     }
@@ -73,7 +73,7 @@ class TipService extends Service
             return [
                 'status' => 200,
                 'tip' => Tip::create($request->input()),
-                'msg' => 'tip has been sucessfully created',
+                'msg' => "L'astuce a été créée",
             ];
         }
     }
@@ -92,12 +92,12 @@ class TipService extends Service
             return [
                 'status' => 200,
                 'tip' => $tip,
-                'msg' => "tip {$id} has been found",
+                'msg' => "L'astuce {$id} a été trouvée",
             ];
         }
         return [
             'status' => 404,
-            'msg' => "tip {$id} was not found",
+            'msg' => "L'astuce {$id} n'a pas été trouvée",
         ];
     }
 
@@ -127,13 +127,13 @@ class TipService extends Service
                 return [
                     'status' => 200,
                     'tip' => Tip::find($id),
-                    'msg' => "tip {$id} has been updated",
+                    'msg' => "L'astuce {$id} a été modifié",
                 ];
             }
         } else {
             return [
                 'status' => 404,
-                'msg' => "tip {$id} was not found",
+                'msg' => "L'astuce {$id} was not found",
             ];
         }
     }

@@ -3,9 +3,11 @@
 namespace App\Http\Services;
 
 use App\models\User;
+use App\models\Quest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class UserService extends Service
 {
@@ -25,7 +27,7 @@ class UserService extends Service
         return [
             'status' => 200,
             'users' => User::all(),
-            'msg ' => 'list of user',
+            'msg ' => 'Liste des utilisateurs',
         ];
     }
 
@@ -42,12 +44,12 @@ class UserService extends Service
         if ($delete) {
             return [
                 'status' => 200,
-                'msg ' => "user {$id} has been deleted",
+                'msg ' => "L'utilisateur {$id} a bien été supprimé",
             ];
         } else {
             return [
                 'status' => 404,
-                'msg' => "user {$id} cannot be deleted, might not exist",
+                'msg' => "L'utilisateur {$id} ne peux pas être supprimer, il n'existe peut-être pas",
             ];
         }
     }
@@ -114,12 +116,12 @@ class UserService extends Service
                 return [
                     'status' => 200,
                     'user' => $user,
-                    'msg' => 'user has been successfully created',
+                    'msg' => "L'utilisateur a été créé",
                 ];
             } else {
                 return [
                     'status' => 400,
-                    'msg' => 'cannot save user',
+                    'msg' => "Impossible d'enregistrer l'utilisateur",
                 ];
             }
         }
@@ -139,12 +141,12 @@ class UserService extends Service
             return [
                 'status' => 200,
                 'user' => $user,
-                'msg' => "user {$id} has been found",
+                'msg' => "L'utilisateur {$id} a été trouvé",
             ];
         }
         return [
             'status' => 404,
-            'msg' => "user {$id} was not found",
+            'msg' => "L'utilisateur {$id} n'a pas été trouvé",
         ];
     }
 
@@ -184,9 +186,74 @@ class UserService extends Service
                 return [
                     'status' => 200,
                     'user' => User::find($id),
-                    'msg' => "user {$id} has been updated",
+                    'msg' => "L'utilisateur {$id} à bien été modifié",
                 ];
             }
+        }
+    }
+
+    public function getUserQuests(Request $request)
+    {
+        return [
+            'status' => 200,
+            'quests' => Auth::user()->quest,
+            'msg' => "Liste des quêtes utilisateur",
+        ];
+    }
+
+    /**
+     * Attach a quest to user
+     *
+     * @param Request $request
+     * @param int $questId
+     * @return array
+     */
+    public function addQuest(Request $request, $questId)
+    {
+        $userId = Auth::user()->id;
+        $user = User::find($userId);
+        $quest = Quest::find($questId);
+        $hasQuest = $user->hasQuest($questId);
+        if ($hasQuest != null) {
+            return [
+                'status' => 409,
+                'msg' => "La quête est déjà attribuée",
+            ];
+        } else {
+            $date = new \DateTime();
+            $expireTimestamp = $date->getTimestamp() + $quest->timeForQuest;
+            $expire = $date->setTimestamp($expireTimestamp);
+            $user->quest()->attach($questId, ['expire' => $expire, 'status' => 1]);
+            return [
+                'status' => 200,
+                'msg' => "La quête a bien été ajoutée",
+            ];
+        }
+    }
+
+    /**
+     * Remove a quest from user
+     *
+     * @param Request $request
+     * @param int $questId
+     * @return array
+     */
+    public function removeQuest(Request $request, $questId)
+    {
+        $userId = Auth::user()->id;
+        $user = User::find($userId);
+        $hasQuest = $user->hasQuest($questId);
+        if ($hasQuest == null) {
+            return [
+                'status' => 404,
+                'msg' => "La quête n'est pas attribuée",
+            ];
+        } else {
+            $user->quest()->detach($questId);
+            return [
+                'status' => 200,
+                'msg' => "La quête a bien été enlevé",
+            ];
         }
     }
 }

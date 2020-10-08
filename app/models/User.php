@@ -58,7 +58,19 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public function quest()
     {
-        return $this->belongsToMany('App\models\Quest', 'userQuest', 'userId', 'questId');
+        return $this->belongsToMany('App\models\Quest', 'userQuest', 'userId', 'questId')->withPivot('expire');
+    }
+
+
+    /**
+     * Return quest if user has relation with
+     * 
+     * @param $requestedQuest
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function hasQuest($requestedQuest)
+    {
+        return $this->quest()->find($requestedQuest);
     }
 
     /**

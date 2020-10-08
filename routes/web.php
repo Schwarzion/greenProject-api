@@ -16,6 +16,7 @@ $router->get('/test', function () {
     return response()->json(['msg' => 'hello']);
 });
 
+//Get Lumpen version
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
@@ -32,6 +33,9 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('user/{id}', ['as' => 'user', 'uses' => 'UserController@show']);
     $router->get('deleteUser/{id}', ['as' => 'deleteUser', 'uses' => 'UserController@delete']);
     $router->post('editUser/{id}', ['as' => 'editUser', 'uses' => 'UserController@update']);
+    $router->get('userQuests', ['as' => 'userQuests', 'uses' => 'UserController@getUserQuests']);
+    $router->post('addQuest/{id}', ['as' => 'addQuest', 'uses' => 'UserController@addQuest']);
+    $router->post('removeQuest/{id}', ['as' => 'removeQuest', 'uses' => 'UserController@removeQuest']);
     //Tips
     $router->get('allTips', ['as' => 'allTips', 'uses' => 'TipController@index']);
     $router->get('tip/{id}', ['as' => 'tip', 'uses' => 'TipController@show']);
