@@ -21,33 +21,42 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-// API route group
+
+
+//API route group
 $router->group(['prefix' => 'api'], function () use ($router) {
     //Authentification
     $router->post('login', ['as' => 'login', 'uses' => 'AuthController@login']);
-    $router->post('logout', ['as' => 'logout', 'uses' => 'AuthController@logout']);
-    $router->get('profile', ['as' => 'profile', 'uses' => 'AuthController@me']);
-    //Users
     $router->post('register', ['as' => 'register', 'uses' => 'UserController@create']);
-    $router->get('allUser', ['as' => 'allUser', 'uses' => 'UserController@index']);
-    $router->get('user/{id}', ['as' => 'user', 'uses' => 'UserController@show']);
-    $router->get('deleteUser/{id}', ['as' => 'deleteUser', 'uses' => 'UserController@delete']);
-    $router->post('editUser/{id}', ['as' => 'editUser', 'uses' => 'UserController@update']);
-    $router->get('userQuests', ['as' => 'userQuests', 'uses' => 'UserController@getUserQuests']);
-    $router->post('addQuest/{id}', ['as' => 'addQuest', 'uses' => 'UserController@addQuest']);
-    $router->post('removeQuest/{id}', ['as' => 'removeQuest', 'uses' => 'UserController@removeQuest']);
-    //Tips
-    $router->get('allTips', ['as' => 'allTips', 'uses' => 'TipController@index']);
-    $router->get('tip/{id}', ['as' => 'tip', 'uses' => 'TipController@show']);
-    $router->post('addTip', ['as' => 'addTip', 'uses' => 'TipController@create']);
-    $router->get('deleteTip/{id}', ['as' => 'deleteTip', 'uses' => 'TipController@delete']);
-    $router->post('editTip/{id}', ['as' => 'editTip', 'uses' => 'TipController@update']);
-    //Quests
-    $router->get('allQuests', ['as' => 'allQuests', 'uses' => 'QuestController@index']);
-    $router->get('quest/{id}', ['as' => 'quest', 'uses' => 'QuestController@show']);
-    $router->post('addQuest', ['as' => 'addQuest', 'uses' => 'QuestController@create']);
-    $router->get('deleteQuest/{id}', ['as' => 'deleteQuest', 'uses' => 'QuestController@delete']);
-    $router->post('editQuest/{id}', ['as' => 'editQuest', 'uses' => 'QuestController@update']);
-    //Roles
-    $router->get('checkRole/{roleId}', ['as' => 'checkRole', 'uses' => 'RoleController@checkRole']);
+    $router->group(['middleware' => 'auth'], function () use ($router) {
+        $router->post('logout', ['as' => 'logout', 'uses' => 'AuthController@logout']);
+        $router->get('profile', ['as' => 'profile', 'uses' => 'AuthController@me']);
+        //Users
+        $router->get('user/{id}', ['as' => 'user', 'uses' => 'UserController@show']);
+        $router->post('editUser/{id}', ['as' => 'editUser', 'uses' => 'UserController@update']);
+        $router->get('userQuests', ['as' => 'userQuests', 'uses' => 'UserController@getUserQuests']);
+        $router->post('addQuest/{id}', ['as' => 'addQuest', 'uses' => 'UserController@addQuest']);
+        $router->post('removeQuest/{id}', ['as' => 'removeQuest', 'uses' => 'UserController@removeQuest']);
+        //Tips
+        $router->get('allTips', ['as' => 'allTips', 'uses' => 'TipController@index']);
+        $router->get('tip/{id}', ['as' => 'tip', 'uses' => 'TipController@show']);
+        //Quests
+        $router->get('allQuests', ['as' => 'allQuests', 'uses' => 'QuestController@index']);
+        $router->get('quest/{id}', ['as' => 'quest', 'uses' => 'QuestController@show']);
+        //Roles
+        $router->get('checkRole/{roleId}', ['as' => 'checkRole', 'uses' => 'RoleController@checkRole']);
+        $router->group(['middleware' => 'role.check:admin'], function () use ($router) {
+            //Users
+            $router->get('allUser', ['as' => 'allUser', 'uses' => 'UserController@index']);
+            $router->get('deleteUser/{id}', ['as' => 'deleteUser', 'uses' => 'UserController@delete']);
+            //Tips
+            $router->post('addTip', ['as' => 'addTip', 'uses' => 'TipController@create']);
+            $router->get('deleteTip/{id}', ['as' => 'deleteTip', 'uses' => 'TipController@delete']);
+            $router->post('editTip/{id}', ['as' => 'editTip', 'uses' => 'TipController@update']);
+            //Quests
+            $router->post('addQuest', ['as' => 'addQuest', 'uses' => 'QuestController@create']);
+            $router->get('deleteQuest/{id}', ['as' => 'deleteQuest', 'uses' => 'QuestController@delete']);
+            $router->post('editQuest/{id}', ['as' => 'editQuest', 'uses' => 'QuestController@update']);
+        });
+    });
 });

@@ -5,9 +5,7 @@ namespace App\Http\Middleware;
 
 
 use App\Http\Services\RoleService;
-use App\models\Role;
 use Closure;
-use Illuminate\Contracts\Auth\Factory;
 use Illuminate\Http\Request;
 
 class Authorization
