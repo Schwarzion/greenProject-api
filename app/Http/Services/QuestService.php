@@ -189,4 +189,41 @@ class QuestService extends Service
             ];
         }
     }
+
+    /**
+     * Update exp user
+     *
+     * @param Illuminate\Http\Request
+     *        $questId (int)
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function validateQuest($questId){
+        $getCurrentUser = Auth::user();
+        $currentUserExp = $getCurrentUser['exp'];
+
+        $getCurrentQuest = $this->show($questId);
+        $currentQuestExp = $getCurrentQuest['quest']['expAmount'];
+        $newUserExp = $currentUserExp += $currentQuestExp;
+        $currentUser = [
+            'exp' => $newUserExp,
+        ];
+
+        $result = $getCurrentUser->update($currentUser);
+
+        if ($result == true) {
+            $updateLevelUser = UserService::updateUserLevel();
+            return [
+                'status' => 200,
+                'user' => $getCurrentUser['id'],
+                'new exp' => $newUserExp,
+                'updateUserLevel' => $updateLevelUser,
+            ];
+        } else {
+            return [
+                'status' => 400,
+                'msg' => 'Can\'t update the current user with the id ' . $getCurrentUser['id'] . ' because he does not exist ',
+            ];
+        }
+    }
 }

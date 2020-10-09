@@ -289,4 +289,38 @@ class UserService extends Service
             ];
         }
     }
+
+    /**
+     * Get current user
+     * 
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public static function updateUserLevel()
+    {
+        $getCurrentUser = Auth::user();
+        $currentUserExp = $getCurrentUser['exp'];
+        $userLevel = Level::where('levelExpAmount', '<=', $currentUserExp)->get()->last();
+        $newUserLevel = [
+            'level' => $userLevel['id'],
+        ];
+        if ($getCurrentUser['level'] == $userLevel['id']) {
+            $result = false;
+        }else{
+            $result = $getCurrentUser->update($newUserLevel);
+        }
+
+        if ($result == true) {
+            return [
+                'status' => 200,
+                'user' => $getCurrentUser['id'],
+                'New level' => $userLevel,
+            ];
+        } else {
+            return [
+                'status' => 400,
+                'msg' => 'Can\'t update the current user with the id ' . $getCurrentUser['id'],
+            ];
+        }
+    }
 }
