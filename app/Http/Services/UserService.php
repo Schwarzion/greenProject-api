@@ -3,7 +3,7 @@
 namespace App\Http\Services;
 
 use App\models\User;
-use App\models\Quest;
+use App\models\Level;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -253,6 +253,73 @@ class UserService extends Service
             return [
                 'status' => 200,
                 'msg' => "La quête a bien été enlevé",
+            ];
+        }
+    }
+
+    /**
+     * Get current user
+     * 
+     * @return array
+     */
+    public static function updateUserLevel()
+    {
+        $getCurrentUser = Auth::user();
+        $currentUserExp = $getCurrentUser['exp'];
+        $userLevel = Level::where('levelExpAmount', '<=', $currentUserExp)->get()->last();
+        $newUserLevel = [
+            'level' => $userLevel['id'],
+        ];
+        if ($getCurrentUser['level'] == $userLevel['id']) {
+            $result = false;
+        }else{
+            $result = $getCurrentUser->update($newUserLevel);
+        }
+
+        if ($result == true) {
+            return [
+                'status' => 200,
+                'user' => $getCurrentUser['id'],
+                'New level' => $userLevel,
+            ];
+        } else {
+            return [
+                'status' => 400,
+                'msg' => 'Can\'t update the current user with the id ' . $getCurrentUser['id'],
+            ];
+        }
+    }
+
+    /**
+     * Get current user
+     * 
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public static function updateUserLevel()
+    {
+        $getCurrentUser = Auth::user();
+        $currentUserExp = $getCurrentUser['exp'];
+        $userLevel = Level::where('levelExpAmount', '<=', $currentUserExp)->get()->last();
+        $newUserLevel = [
+            'level' => $userLevel['id'],
+        ];
+        if ($getCurrentUser['level'] == $userLevel['id']) {
+            $result = false;
+        }else{
+            $result = $getCurrentUser->update($newUserLevel);
+        }
+
+        if ($result == true) {
+            return [
+                'status' => 200,
+                'user' => $getCurrentUser['id'],
+                'New level' => $userLevel,
+            ];
+        } else {
+            return [
+                'status' => 400,
+                'msg' => 'Can\'t update the current user with the id ' . $getCurrentUser['id'],
             ];
         }
     }

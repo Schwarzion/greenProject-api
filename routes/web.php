@@ -21,8 +21,6 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-
-
 //API route group
 $router->group(['prefix' => 'api'], function () use ($router) {
     //Authentification
@@ -37,12 +35,15 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         $router->get('userQuests', ['as' => 'userQuests', 'uses' => 'UserController@getUserQuests']);
         $router->post('addQuest/{id}', ['as' => 'addQuest', 'uses' => 'UserController@addQuest']);
         $router->post('removeQuest/{id}', ['as' => 'removeQuest', 'uses' => 'UserController@removeQuest']);
+        $router->get('updateUserLevel/', ['as' => 'updateUserLevel', 'uses' => 'UserController@updateUserLevel']);
         //Tips
         $router->get('allTips', ['as' => 'allTips', 'uses' => 'TipController@index']);
         $router->get('tip/{id}', ['as' => 'tip', 'uses' => 'TipController@show']);
         //Quests
         $router->get('allQuests', ['as' => 'allQuests', 'uses' => 'QuestController@index']);
         $router->get('quest/{id}', ['as' => 'quest', 'uses' => 'QuestController@show']);
+        $router->get('validateQuest/{id}', ['as' => 'validateQuest', 'uses' => 'QuestController@validateQuest']);
+
         //Roles
         $router->get('checkRole/{roleId}', ['as' => 'checkRole', 'uses' => 'RoleController@checkRole']);
         $router->group(['middleware' => 'role.check:admin'], function () use ($router) {
