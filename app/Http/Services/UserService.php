@@ -4,6 +4,7 @@ namespace App\Http\Services;
 
 use App\models\User;
 use App\models\Level;
+use App\models\Quest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
