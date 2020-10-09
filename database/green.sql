@@ -1,8 +1,8 @@
--- MySQL dump 10.17  Distrib 10.3.23-MariaDB, for debian-linux-gnueabihf (armv7l)
+-- MariaDB dump 10.17  Distrib 10.5.5-MariaDB, for Linux (x86_64)
 --
 -- Host: localhost    Database: greenDB
 -- ------------------------------------------------------
--- Server version	10.3.23-MariaDB-0+deb10u1
+-- Server version	10.5.5-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -14,11 +14,6 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
-
-DROP DATABASE IF EXISTS greenDB;
-CREATE DATABASE greenDB;
-USE greenDB;
 
 --
 -- Table structure for table `level`
@@ -178,7 +173,7 @@ CREATE TABLE `tip` (
 
 LOCK TABLES `tip` WRITE;
 /*!40000 ALTER TABLE `tip` DISABLE KEYS */;
-INSERT INTO `tip` VALUES (1,'testTip','Adieu les bouteilles d\'eau, le charbon actif permet d\'assainir l\'eau du robinet!',1),(2,'coffeeMaker','Si tu souhaites boire ton café sans déchet, rien de mieux qu\'une cafetière italienne, à piston ou un filtre lavable!',1),(3,'shower','Remplace ton shampoing et ton gel douche par des solutions solides afin d\'éviter les emballages!',1),(4,'stopPub','N\'hésites pas à mettre un autocollant \"Stop Pub\" sur ta boite aux lettres si tu es contre la production intensive de pap',1),(5,'fruitsMûrs','Si tu as des fruits trop mûrs, fait des compotes ou des confitures!',1);
+INSERT INTO `tip` VALUES (1,'L\'eau de là','Adieu les bouteilles d\'eau, le charbon actif permet d\'assainir l\'eau du robinet!',1),(2,'Café avec style (et goût!)','Si tu souhaites boire ton café sans déchet, rien de mieux qu\'une cafetière italienne, à piston ou un filtre lavable!',1),(3,'Ta meilleure douche','Remplace ton shampoing et ton gel douche par des solutions solides afin d\'éviter les emballages!',1),(4,'Non à la pub ! ','Met un autocollant \"Stop Pub\" sur ta boite aux lettres si tu es contre la production intensive de papier',1),(5,'Que faire de mes fruits trop mûrs ? ','Si tu as des fruits trop mûrs, fait des compotes ou des confitures!',1);
 /*!40000 ALTER TABLE `tip` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -261,4 +256,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-10-08 14:06:56
+-- Dump completed on 2020-10-09 17:42:21
