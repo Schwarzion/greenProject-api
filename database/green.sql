@@ -173,7 +173,7 @@ CREATE TABLE `tip` (
 
 LOCK TABLES `tip` WRITE;
 /*!40000 ALTER TABLE `tip` DISABLE KEYS */;
-INSERT INTO `tip` VALUES (1,'L\'eau de là','Adieu les bouteilles d\'eau, le charbon actif permet d\'assainir l\'eau du robinet!',1),(2,'Café avec style (et goût!)','Si tu souhaites boire ton café sans déchet, rien de mieux qu\'une cafetière italienne, à piston ou un filtre lavable!',1),(3,'Ta meilleure douche','Remplace ton shampoing et ton gel douche par des solutions solides afin d\'éviter les emballages!',1),(4,'Non à la pub ! ','Met un autocollant \"Stop Pub\" sur ta boite aux lettres si tu es contre la production intensive de papier',1),(5,'Que faire de mes fruits trop mûrs ? ','Si tu as des fruits trop mûrs, fait des compotes ou des confitures!',1);
+INSERT INTO `tip` VALUES (1,'L\'eau de là','Adieu les bouteilles d\'eau, le charbon actif permet d\'assainir l\'eau du robinet!',1),(2,'Marc de café','Le marc de café peux servir a plein de fonctions : gommage, engrasi, absorbeur de mauvaise odeur ...etc',1),(3,'Nouvelle vie','Ne jettes pas ton pain s\'il est dur, tu peux toujours en faire du pain perdu ou même le donner aux animaux',1),(4,'Non à la pub ! ','Met un autocollant \"Stop Pub\" sur ta boite aux lettres si tu es contre la production intensive de papier',1),(5,'Que faire de mes fruits trop mûrs ? ','Si tu as des fruits trop mûrs, fait des compotes ou des confitures!',1),(6,'Liquide vaisselle','Y\'en a encore ! Ton flacon de liquide vaisselle est pratiquement terminé? Ajoutes-y de l\'eau',1);
 /*!40000 ALTER TABLE `tip` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -256,4 +256,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-10-09 17:42:21
+-- Dump completed on 2020-10-09 18:33:15
