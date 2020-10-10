@@ -164,8 +164,8 @@ class UserService extends Service
         $validator = Validator::make($request->all(), [
             'firstName' => 'min:3|max:30|alpha_dash',
             'lastName' => 'min:3|max:30|alpha_dash',
-            'alias' => 'min:3|max:20|unique:user,alias',
-            'email' => 'min:3|max:89|email|unique:user,email',
+            'alias' => 'min:3|max:20',
+            'email' => 'min:3|max:89|email',
             'password' => 'min:3|max:50',
             'confirmPassword' => 'min:3|max:50',
             'address' => 'min:3|max:60',
