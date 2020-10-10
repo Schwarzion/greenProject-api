@@ -72,7 +72,7 @@ class questTest extends TestCase
           'endDate' => '2035-01-01'
         ]);
         $this->assertEquals(200, $response->status());
-        $this->assertEquals('quest 1 has been updated', $response->getData()->msg);
+        $this->assertEquals('La quête 1 a été modifiée', $response->getData()->msg);
     }
 
     /**

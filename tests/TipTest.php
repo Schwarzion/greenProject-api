@@ -63,7 +63,7 @@ class tipTest extends TestCase
             'desc' => 'testDesc',
         ]);
         $this->assertEquals(200, $response->status());
-        $this->assertEquals('tip 1 has been updated', $response->getData()->msg);
+        $this->assertEquals("L'astuce 1 a été modifié", $response->getData()->msg);
     }
 
     /**
