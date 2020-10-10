@@ -16,6 +16,8 @@ php artisan list
 Launch Testing: 
 vendor/bin/phpunit --testdox --debug (si besoin)
 
+List all routes:
+php artisan route:list
 
 Validation option list (useful for forms) : 
 https://laravel.com/docs/6.x/validation#available-validation-rules
