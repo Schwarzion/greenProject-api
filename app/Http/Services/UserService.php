@@ -179,7 +179,7 @@ class UserService extends Service
         if ($validator->fails()) {
             return [
                 'status' => 400,
-                'msg' => $validator->errors()->messages(),
+                'msgs' => $validator->errors()->messages(),
             ];
         } else {
             $user = User::whereId($id)->update($request->input());
@@ -188,6 +188,11 @@ class UserService extends Service
                     'status' => 200,
                     'user' => User::find($id),
                     'msg' => "L'utilisateur {$id} à bien été modifié",
+                ];
+            }else{
+                return [
+                    'status' => 403,
+                    'msg' => "Aucune modification n'a été apportée à l'utilisateur"
                 ];
             }
         }
