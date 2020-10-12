@@ -268,7 +268,7 @@ class UserService extends Service
         $getCurrentUser = Auth::user();
         $currentUserExp = $getCurrentUser['exp'];
         $userLevel = Level::where('levelExpAmount', '<=', $currentUserExp)->get()->last();
-        $newUserLevel = [
+        $newUserLevel = [   
             'level' => $userLevel['id'],
         ];
         if ($getCurrentUser['level'] == $userLevel['id']) {

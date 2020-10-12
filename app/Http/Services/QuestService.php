@@ -175,6 +175,7 @@ class QuestService extends Service
         $result = $getCurrentUser->update($currentUser);
 
         if ($result == true) {
+            $getCurrentUser->quest()->detach($questId); 
             $updateLevelUser = UserService::updateUserLevel();
             return [
                 'status' => 200,
